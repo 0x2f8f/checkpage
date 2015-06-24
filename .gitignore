@@ -1,37 +1,36 @@
-# Cache and logs (Symfony2)
-/app/cache/*
-/app/logs/*
-!app/cache/.gitkeep
-!app/logs/.gitkeep
+*.*~
+Thumbs.db
+.idea
+.idea/*
+.nginxrules
+.Trash-1000
+nbproject/*
 
-# Cache and logs (Symfony3)
-/var/cache/*
-/var/logs/*
-!var/cache/.gitkeep
-!var/logs/.gitkeep
-
-# Parameters
-/app/config/parameters.yml
-/app/config/parameters.ini
-
-# Managed by Composer
-/app/bootstrap.php.cache
-/var/bootstrap.php.cache
-/bin/*
-!bin/console
-!bin/symfony_requirements
-/vendor/
-
-# Assets and user uploads
-/web/bundles/
-/web/uploads/
-
-# PHPUnit
-/app/phpunit.xml
-/phpunit.xml
-
-# Build data
-/build/
-
-# Composer PHAR
-/composer.phar
+app/config/parameters.yml
+app/config/sphinx.conf
+components/*
+vendor/*
+app/logs/*
+app/cache/*
+app/data/*
+web/uploads/*
+web/uploads
+web/bundles/*
+web/media/*
+web/media
+web/bower/*
+web/js/*
+web/css/*
+!web/js/.gitkeep
+src/**/Model/map/*
+src/**/Model/om/*
+/app/propel/sql/*
+ssl/client_header
+ssl/client_body
+ssl/server_header
+ssl/server_body
+atlassian-ide-plugin.xml
+.php55
+composer.lock
+log/*
+/node_modules
