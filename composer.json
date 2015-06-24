@@ -7,14 +7,25 @@
         "psr-4": { "": "src/", "SymfonyStandard\\": "app/" }
     },
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.4",
         "symfony/symfony": "~2.7@beta",
+        "twig/extensions": "~1.2",
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
-        "sensio/distribution-bundle": "~3.0,>=3.0.12",
-        "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "sensio/distribution-bundle": "~3.0.12",
+        "sensio/framework-extra-bundle": "~3.0",
+        "incenteev/composer-parameter-handler": "~2.0",
+        "propel/propel": "~2.0@dev",
+        "sonata-project/admin-bundle": "2.3.2",
+        "sonata-project/propel-admin-bundle": "dev-master",
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "jonlil/ckfinder-bundle": "dev-master",
+        "jms/i18n-routing-bundle": "1.1.1",
+        "knplabs/knp-menu-bundle": "1.1.2",
+        "lunetics/locale-bundle": "2.2.*",
+        "propel/propel-bundle": "~1.4",
+        "willdurand/propel-typehintable-behavior": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
@@ -57,3 +68,5 @@
         }
     }
 }
+
+

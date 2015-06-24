@@ -1,0 +1,3 @@
+#Основной роутинг
+it_blaster_main:
+    resource: "main.yml"
