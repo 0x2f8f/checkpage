@@ -1,0 +1,8 @@
+{% block javascripts %}
+    {% javascripts
+    '@ItBlasterMainBundle/Resources/public/js/frontend/main.js'
+    filter='?yui_js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
