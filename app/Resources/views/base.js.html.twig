@@ -1,8 +1,16 @@
 {% block javascripts %}
+    {#
     {% javascripts
-    '@ItBlasterMainBundle/Resources/public/js/frontend/main.js'
+        '@ItBlasterMainBundle/Resources/public/js/frontend/main.js'
+        '@ItBlasterMainBundle/Resources/public/js/libs/jquery.js'
+        '@ItBlasterMainBundle/Resources/public/js/libs/bootstrap.min.js'
     filter='?yui_js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    #}
+
+    <script src="/bundles/itblastermain/js/libs/jquery.js"></script>
+    <script src="/bundles/itblastermain/js/libs/bootstrap.min.js"></script>
+    <script src="/bundles/itblastermain/js/frontend/main.js"></script>
 {% endblock %}

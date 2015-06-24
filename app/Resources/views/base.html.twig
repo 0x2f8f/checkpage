@@ -17,8 +17,10 @@
     <link href="/favicon.ico" rel="shortcut icon">
 
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('/bundles/itblastermain/css/style.css') }}" />
-        <!--[if lt IE 10]><link href="/css/ie.css" rel="stylesheet"> <!--<![endif]-->
+        <link href="{{ asset('/bundles/itblastermain/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('/bundles/itblastermain/css/sb-admin.css') }}" rel="stylesheet">
+        <link href="{{ asset('/bundles/itblastermain/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('/bundles/itblastermain/css/style.css') }}" rel="stylesheet" />
     {% endblock %}
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script><![endif]-->
     {% include '::base.js.html.twig' %}
