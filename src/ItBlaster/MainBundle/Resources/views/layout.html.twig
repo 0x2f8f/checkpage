@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
     {% block body %}
-        <div id="wrapper">
+        <div id="{{ app.user ? 'wrapper' : 'wrapper-not-authorized' }}">
 
             {{ render(controller("ItBlasterMainBundle:Layout:header", {'request':app.request})) }} {# header #}
 

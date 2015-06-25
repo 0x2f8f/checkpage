@@ -39,15 +39,15 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
-        project_title: "CheckSite"
+        project_title: %project_title%
     form:
         resources:
-            - 'ItBlasterAttachFileBundle:Form:attach_file_widget.html.twig'
-            - 'ItBlasterCheckboxListBundle:Form:checkbox_list_widget.html.twig'
-            - 'OhGoogleMapFormTypeBundle:Form:fields.html.twig'
+            #- 'ItBlasterAttachFileBundle:Form:attach_file_widget.html.twig'
+            #- 'ItBlasterCheckboxListBundle:Form:checkbox_list_widget.html.twig'
+            #- 'OhGoogleMapFormTypeBundle:Form:fields.html.twig'
             - 'SonataCoreBundle:Form:datepicker.html.twig'
-            #- 'ArtsofteMainBundle:Form:fields.html.twig'
-    #exception_controller: ArtsofteMainBundle:Layout:showException
+            #- 'ItBlasterMainBundle:Form:fields.html.twig'
+    #exception_controller: ItBlasterMainBundle:Layout:showException
 
 # Assetic Configuration
 assetic:
@@ -114,8 +114,8 @@ fos_user:
             from_email:
                 address: %mailer_user%
                 sender_name: %mailer_user_title%
-        form:
-            type: artsofte_user_registration
+        #form:
+        #    type: artsofte_user_registration
     resetting:
         token_ttl: 7200
         email:

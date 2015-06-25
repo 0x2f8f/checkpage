@@ -59,9 +59,24 @@ class LayoutController extends Controller
      */
     public function titleAction(Request $request)
     {
-        $title = 'Homepage';
+        $title = $this->getTitle($request);
         return $this->render('ItBlasterMainBundle:Layout:title.html.twig', array(
             'title' => $title
         ));
+    }
+
+    private function getTitle(Request $request)
+    {
+        $route_name = $request->get('_route');
+        $modules = array(
+            'homepage'                          => 'Проверка доступности сайтов',
+            'projects'                          => 'Проекты',
+            'fos_user_security_login'           => 'Авторизация',
+            'fos_user_registration_register'    => 'Регистрация',
+            'fos_user_registration_confirmed'   => 'Успешная регистрация',
+            'fos_user_registration_check_email' => 'Вы почти зарегистрировались'
+        );
+        dump($route_name);
+        return isset($modules[$route_name]) ?  $modules[$route_name] : 'CheckSite'; //$this->container->getParameter('project_title');
     }
 }
