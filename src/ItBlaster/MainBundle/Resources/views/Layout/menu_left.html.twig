@@ -3,6 +3,11 @@
         <li>
             <a href="{{ path('projects') }}"><i class="fa fa-fw fa-dashboard"></i> Проекты</a>
         </li>
+        {% if(is_granted('ROLE_SUPER_ADMIN')) %}
+            <li>
+                <a href="{{ path('sonata_admin_dashboard') }}"><i class="fa fa-fw fa-wrench"></i> CMS</a>
+            </li>
+        {% endif %}
         {#
         <li>
             <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>

@@ -76,7 +76,6 @@ class LayoutController extends Controller
             'fos_user_registration_confirmed'   => 'Успешная регистрация',
             'fos_user_registration_check_email' => 'Вы почти зарегистрировались'
         );
-        dump($route_name);
         return isset($modules[$route_name]) ?  $modules[$route_name] : 'CheckSite'; //$this->container->getParameter('project_title');
     }
 }
