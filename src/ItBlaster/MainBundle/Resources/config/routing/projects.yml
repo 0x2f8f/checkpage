@@ -1,0 +1,5 @@
+#Главная
+projects:
+  pattern:  /projects
+  defaults:
+    _controller: ItBlasterMainBundle:Projects:list

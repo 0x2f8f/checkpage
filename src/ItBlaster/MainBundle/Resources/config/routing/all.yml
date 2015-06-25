@@ -1,3 +1,7 @@
 #Основной роутинг
 it_blaster_main:
     resource: "main.yml"
+
+#Проекты пользователя
+it_blaster_projects:
+    resource: "projects.yml"
