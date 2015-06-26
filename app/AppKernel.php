@@ -28,9 +28,9 @@ class AppKernel extends Kernel
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Jonlil\CKFinderBundle\JonlilCKFinderBundle('IvoryCKEditorBundle'),
 
-            new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
-            new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
-            new JMS\TranslationBundle\JMSTranslationBundle(),
+            //new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
+            //new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
+            //new JMS\TranslationBundle\JMSTranslationBundle(),
 
             new ItBlaster\MainBundle\ItBlasterMainBundle(),
         );

@@ -131,6 +131,23 @@ monolog:
             path:   "%kernel.logs_dir%/geo.log"
             channels: geochannel
 
+sonata_admin:
+    title:      CMS
+#    title_logo: /bundles/artsoftemain/images/logo2.png
+    templates:
+        dashboard: SonataAdminBundle:Core:dashboard.html.twig
+        ajax:    SonataAdminBundle::ajax_layout.html.twig
+
+        # default actions templates, should extend a global templates
+        list:    SonataAdminBundle:CRUD:list.html.twig
+        show:    SonataAdminBundle:CRUD:show.html.twig
+        edit:    SonataAdminBundle:CRUD:edit.html.twig
+
+    dashboard:
+        blocks:
+            # display a dashboard block
+            - { position: left, type: sonata.admin.block.admin_list }
+
 sonata_block:
     default_contexts: [cms]
     blocks:
@@ -143,19 +160,19 @@ jonlil_ck_finder:
     baseUrl: "/uploads/"
     service: "php"
 
-lunetics_locale:
-    allowed_locales: %locales%
-    guessing_order:  [query, router]
+#lunetics_locale:
+#    allowed_locales: %locales%
+#    guessing_order:  [query, router]
 
-jms_i18n_routing:
-    default_locale: %locale%
-    locales: %locales%
+#jms_i18n_routing:
+#    default_locale: %locale%
+#    locales: %locales%
 #    strategy: prefix
 #    strategy: prefix_except_default
-    strategy: custom
-    hosts:
-        ru: %domain%
-        en: en.%domain%
-    redirect_to_host: true
+#    strategy: custom
+#    hosts:
+#        ru: %domain%
+#        en: en.%domain%
+#    redirect_to_host: true
         # [optional] Defaults to false.
 

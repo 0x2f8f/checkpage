@@ -1,0 +1,6 @@
+services:
+    it_blaster_main.admin.project:
+        class: ItBlaster\MainBundle\Admin\ProjectAdmin
+        arguments: [~, ItBlaster\MainBundle\Model\Project, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: propel, group: Разделы, label: Проекты}
