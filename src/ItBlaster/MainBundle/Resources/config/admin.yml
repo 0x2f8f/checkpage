@@ -3,4 +3,10 @@ services:
         class: ItBlaster\MainBundle\Admin\ProjectAdmin
         arguments: [~, ItBlaster\MainBundle\Model\Project, SonataAdminBundle:CRUD]
         tags:
-            - {name: sonata.admin, manager_type: propel, group: Разделы, label: Проекты}
+            - {name: sonata.admin, manager_type: propel, group: Проекты, label: Список проектов}
+
+    it_blaster_main.admin.project_link:
+        class: ItBlaster\MainBundle\Admin\ProjectLinkAdmin
+        arguments: [~, ItBlaster\MainBundle\Model\ProjectLink, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: propel, group: Проекты, label: Ссылки проектов}
