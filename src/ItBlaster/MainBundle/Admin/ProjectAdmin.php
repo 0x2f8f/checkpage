@@ -50,17 +50,19 @@ class ProjectAdmin extends Admin
     {
         $formMapper
 //            ->add('Id')
-            ->add('Title')
-            ->add('Active')
-            /*
-            ->add('Solution', 'model', [
-                'class' => 'FOS\\UserBundle\\Model\\User',
-                'label' => 'Решение',
+            ->add('Title', null,[
+                'label' => 'Название'
+            ])
+            ->add('Active', null,[
+                'label' => 'Активен'
+            ])
+            ->add('UserId', 'model', [
+                'class' => 'FOS\\UserBundle\\Propel\\User',
+                'label' => 'Пользователь',
                 'required' => true,
                 //'data' => SolutionQuery::create()->findOneById($defaults['Solution']),
             ])
-            */
-            ->add('UserId')
+            //->add('UserId')
         ;
     }
 
