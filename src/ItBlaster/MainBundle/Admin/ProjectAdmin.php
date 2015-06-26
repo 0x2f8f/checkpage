@@ -19,7 +19,7 @@ class ProjectAdmin extends Admin
 //            ->add('Id')
             ->add('Title')
             ->add('Active')
-            ->add('UserId')
+            ->add('User')
         ;
     }
 
@@ -29,10 +29,10 @@ class ProjectAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-//            ->add('Id')
+            ->add('Id')
             ->add('Title')
             ->add('Active')
-            ->add('UserId')
+            ->add('User')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -56,13 +56,7 @@ class ProjectAdmin extends Admin
             ->add('Active', null,[
                 'label' => 'Активен'
             ])
-            ->add('UserId', 'model', [
-                'class' => 'FOS\\UserBundle\\Propel\\User',
-                'label' => 'Пользователь',
-                'required' => true,
-                //'data' => SolutionQuery::create()->findOneById($defaults['Solution']),
-            ])
-            //->add('UserId')
+            ->add('User')
         ;
     }
 
