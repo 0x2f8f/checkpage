@@ -19,11 +19,12 @@
 
     <table name="project_link" description="Ссылки">
         <column name="id"           type="integer" required="true" primaryKey="true" autoIncrement="true" />
-        <column name="link"         type="varchar" required="true" primaryString="true" />
+        <column name="title"        type="varchar" required="true" primaryString="true" />
+        <column name="link"         type="varchar" required="true" />
         <column name="active"       type="boolean" />
         <column name="project_id"   type="integer" />
 
-        <foreign-key foreignTable="project_link" onDelete="setnull" onUpdate="cascade">
+        <foreign-key foreignTable="project" onDelete="setnull" onUpdate="cascade">
             <reference local="project_id" foreign="id" />
         </foreign-key>
     </table>

@@ -17,9 +17,10 @@ class ProjectLinkAdmin extends Admin
     {
         $datagridMapper
 //            ->add('Id')
+            ->add('Title')
             ->add('Link')
             ->add('Active')
-            ->add('ProjectId')
+            ->add('Project')
         ;
     }
 
@@ -30,9 +31,12 @@ class ProjectLinkAdmin extends Admin
     {
         $listMapper
             ->add('Id')
+            ->addIdentifier('Title')
             ->add('Link')
-            ->add('Active')
-            ->add('ProjectId')
+            ->add('Active', null, [
+                'editable' => true,
+            ])
+            ->add('Project')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -50,9 +54,18 @@ class ProjectLinkAdmin extends Admin
     {
         $formMapper
 //            ->add('Id')
-            ->add('Link')
-            ->add('Active')
-            ->add('ProjectId')
+            ->add('Title',null,[
+                'label' => 'Название'
+            ])
+            ->add('Link',null,[
+                'label' => 'Ссылка'
+            ])
+            ->add('Active', null,[
+                'label' => 'Активна'
+            ])
+            ->add('Project', null, [
+                'label' => 'Проект'
+            ])
         ;
     }
 
@@ -62,10 +75,11 @@ class ProjectLinkAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('Id')
+            //->add('Id')
+            ->add('Title')
             ->add('Link')
             ->add('Active')
-            ->add('ProjectId')
+            ->add('Project')
         ;
     }
 }
