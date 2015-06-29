@@ -1,5 +1,11 @@
-#Главная
+#Список проектов пользователя
 projects:
   pattern:  /projects
   defaults:
     _controller: ItBlasterMainBundle:Projects:list
+
+#Страница конкретного проекта
+project-show:
+  pattern:  /projects/{project_name}
+  defaults:
+    _controller: ItBlasterMainBundle:Projects:show

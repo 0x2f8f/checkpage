@@ -30,8 +30,10 @@ class ProjectAdmin extends Admin
     {
         $listMapper
             ->add('Id')
-            ->add('Title')
-            ->add('Active')
+            ->addIdentifier('Title')
+            ->add('Active', null, [
+                'editable' => true,
+            ])
             ->add('User')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -50,6 +52,13 @@ class ProjectAdmin extends Admin
     {
         $formMapper
 //            ->add('Id')
+            ->add('Slug', null, array(
+                'attr' => array(
+                    'maxlength' => 255,
+                    'readonly'  => true
+                ),
+                'help' => 'Максимальная длина 255 символов.'
+            ))
             ->add('Title', null,[
                 'label' => 'Название'
             ])

@@ -10,7 +10,13 @@
         <column name="id"           type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="title"        type="varchar" required="true" primaryString="true" />
         <column name="active"       type="boolean" />
+        <column name="status"       type="boolean" />
+        <column name="last_check"   type="timestamp" />
         <column name="user_id"      type="integer" />
+
+        <behavior name="sluggable">
+            <parameter name="primary_string" value="title" />
+        </behavior>
 
         <foreign-key foreignTable="fos_user" onDelete="setnull" onUpdate="cascade">
             <reference local="user_id" foreign="id" />
