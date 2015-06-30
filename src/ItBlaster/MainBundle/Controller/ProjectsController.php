@@ -2,8 +2,10 @@
 
 namespace ItBlaster\MainBundle\Controller;
 
+use ItBlaster\MainBundle\Model\Project;
 use ItBlaster\MainBundle\Service\ProjectService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProjectsController extends Controller
@@ -25,6 +27,13 @@ class ProjectsController extends Controller
         ]);
     }
 
+    /**
+     * Страница проекта
+     *
+     * @param Request $request
+     * @param $project_name
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function showAction(Request $request, $project_name)
     {
         $project_service = $this->getProjectService();
@@ -39,9 +48,27 @@ class ProjectsController extends Controller
         ]);
     }
 
+    /**
+     * Добавление проекта
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function addAction(Request $request)
     {
+        $form = $this->createForm('project');
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            try {
+                $this->addProject($form);
+            } catch (\Exception $e) {
+                $form->addError(new FormError($e->getMessage()));
+            }
+        }
 
+        return $this->render('ItBlasterMainBundle:Projects:add.html.twig', [
+            'form'  => $form->createView()
+        ]);
     }
 
     /**
@@ -55,5 +82,17 @@ class ProjectsController extends Controller
             $this->project_service = $this->container->get('project_service');
         }
         return $this->project_service;
+    }
+
+    private function addProject($form)
+    {
+        $data = $form->getData();
+        $project = new Project();
+        $project
+            ->setTitle($data['title'])
+            ->setActive(true)
+            ->setUser($this->getUser())
+            ->save();
+        return $project;
     }
 }

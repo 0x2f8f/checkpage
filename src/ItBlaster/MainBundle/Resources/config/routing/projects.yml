@@ -12,6 +12,6 @@ project-show:
 
 #Страница конкретного проекта
 project-add:
-  pattern:  /projects/add
+  pattern:  /project-add
   defaults:
     _controller: ItBlasterMainBundle:Projects:add
