@@ -26,4 +26,21 @@ class ProjectService extends BaseProjectService
             ->orderByTitle()
             ->find();
     }
+
+    /**
+     * Конкретный проект
+     *
+     * @param $project_name
+     * @param bool $active
+     * @return mixed
+     */
+    public function getProject($project_name, $active = false)
+    {
+        return ProjectQuery::create()
+            ->filterBySlug($project_name)
+            ->_if($active)
+                ->filterByActive(true)
+            ->_endif()
+            ->findOne();
+    }
 }

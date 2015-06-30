@@ -5,3 +5,7 @@ it_blaster_main:
 #Проекты пользователя
 it_blaster_projects:
     resource: "projects.yml"
+
+#Отчёты
+it_blaster_reports:
+    resource: "reports.yml"

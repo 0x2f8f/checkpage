@@ -71,6 +71,8 @@ class LayoutController extends Controller
         $modules = array(
             'homepage'                          => 'Проверка доступности сайтов',
             'projects'                          => 'Проекты',
+            'project-show'                      => 'Проекты',
+            'reports'                           => 'Отчёты',
             'fos_user_security_login'           => 'Авторизация',
             'fos_user_registration_register'    => 'Регистрация',
             'fos_user_registration_confirmed'   => 'Успешная регистрация',

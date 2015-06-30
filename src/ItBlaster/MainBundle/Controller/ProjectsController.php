@@ -25,6 +25,25 @@ class ProjectsController extends Controller
         ]);
     }
 
+    public function showAction(Request $request, $project_name)
+    {
+        $project_service = $this->getProjectService();
+        $project = $project_service->getProject($project_name);
+
+        if (!$project) {
+            throw $this->createNotFoundException('Project not fonud');
+        }
+
+        return $this->render('ItBlasterMainBundle:Projects:show.html.twig', [
+            'project'  => $project
+        ]);
+    }
+
+    public function addAction(Request $request)
+    {
+
+    }
+
     /**
      * Возвращает сервис по работе с проектами
      *
