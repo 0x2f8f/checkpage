@@ -1,0 +1,17 @@
+#Добавление ссылки
+project-link-add:
+  pattern:  /project-link-add/{project_name}
+  defaults:
+    _controller: ItBlasterMainBundle:ProjectLink:add
+
+#Редактирование ссылки
+project-link-edit:
+  pattern:  /project-link-edit/{id}
+  defaults:
+    _controller: ItBlasterMainBundle:ProjectLink:edit
+
+#Удаление ссылки
+project-link-delete:
+  pattern:  /project-link-delete/{id}
+  defaults:
+    _controller: ItBlasterMainBundle:ProjectLink:delete

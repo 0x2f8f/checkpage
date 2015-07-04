@@ -10,7 +10,7 @@ project-show:
   defaults:
     _controller: ItBlasterMainBundle:Projects:show
 
-#Страница конкретного проекта
+#Добавление проекта
 project-add:
   pattern:  /project-add
   defaults:

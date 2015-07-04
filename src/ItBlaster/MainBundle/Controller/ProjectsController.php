@@ -3,14 +3,14 @@
 namespace ItBlaster\MainBundle\Controller;
 
 use ItBlaster\MainBundle\Model\Project;
-use ItBlaster\MainBundle\Service\ProjectService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use ItBlaster\MainBundle\Controller\traits\ProjectServiceTrait;
 
 class ProjectsController extends Controller
 {
-    private $project_service = null;
+    use ProjectServiceTrait;
 
     /**
      * Список проектов пользователя
@@ -122,18 +122,7 @@ class ProjectsController extends Controller
         return $this->redirect($this->generateUrl('projects')); //редиректим на страницу списка проектов
     }
 
-    /**
-     * Возвращает сервис по работе с проектами
-     *
-     * @return ProjectService
-     */
-    private function getProjectService()
-    {
-        if (!$this->project_service) {
-            $this->project_service = $this->container->get('project_service');
-        }
-        return $this->project_service;
-    }
+
 
     /**
      * Создание объекта "Проект" в базе
@@ -152,33 +141,6 @@ class ProjectsController extends Controller
             ->setActive(true)
             ->setUser($this->getUser())
             ->save();
-        return $project;
-    }
-
-    /**
-     * Проверяем наличие прав у пользователя на проект
-     *
-     * @param Project $project
-     */
-    private function checkPermissions(Project $project)
-    {
-        if (!$this->getProjectService()->hasCredential($this->getUser(), $project)) {
-            throw $this->createNotFoundException('Access denied');
-        }
-    }
-
-    /**
-     * Вовзвращает проект по алиасу
-     *
-     * @param $project_name
-     * @return Project
-     */
-    private function getProject($project_name)
-    {
-        $project = $this->getProjectService()->getProject($project_name);
-        if (!$project) {
-            throw $this->createNotFoundException('Project not fonud');
-        }
         return $project;
     }
 }

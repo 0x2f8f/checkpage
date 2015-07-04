@@ -6,6 +6,10 @@ it_blaster_main:
 it_blaster_projects:
     resource: "projects.yml"
 
+#Ссылки проекта
+it_blaster_project_links:
+    resource: "project_links.yml"
+
 #Отчёты
 it_blaster_reports:
     resource: "reports.yml"

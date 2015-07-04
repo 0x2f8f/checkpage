@@ -15,4 +15,16 @@ class Project extends BaseProject
     {
         return $this->getUser() ? $this->getUser()->getEmail() : '';
     }
+
+    /**
+     * Ссылки проекта
+     *
+     * @return \PropelObjectCollection
+     */
+    public function getLinks()
+    {
+        $c = new \Criteria();
+        $c->addAscendingOrderByColumn(ProjectLinkPeer::TITLE);
+        return $this->getProjectLinks($c);
+    }
 }
