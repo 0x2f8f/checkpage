@@ -33,6 +33,13 @@ class ProjectType extends BaseAbstractType
                     )),
                 )
             ))
+            ->add('link', 'text', array(
+                'label'     => 'Ссылка',
+                'required'  => TRUE,
+                'attr' => array(
+                    'class' => 'form-control',
+                )
+            ))
         ;
     }
 }

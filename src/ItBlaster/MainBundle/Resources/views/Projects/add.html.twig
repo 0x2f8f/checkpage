@@ -6,11 +6,7 @@
         <form action="{{ path('project-add') }}" method="post" {{ form_enctype(form) }} id="project-add-form" class="form" role="form">
             {{ form_errors(form) }}
 
-            <div class="form-group">
-                {{ form_label(form.title) }}
-                {{ form_errors(form.title) }}
-                {{ form_widget(form.title) }}
-            </div>
+            {% include 'ItBlasterMainBundle:Projects:form_fields.html.twig' with {'form': form} %} {# Поля формы #}
 
             {{ form_rest(form) }}
 

@@ -10,6 +10,14 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class ProjectAdmin extends Admin
 {
+    private $labels = [
+        'title'     => 'Название',
+        'active'    => 'Активен',
+        'link'      => 'Ссылка',
+        'user'      => 'Пользователь',
+        'actions'   => 'Действия'
+    ];
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -18,6 +26,7 @@ class ProjectAdmin extends Admin
         $datagridMapper
 //            ->add('Id')
             ->add('Title')
+            ->add('Litle')
             ->add('Active')
             ->add('User')
         ;
@@ -30,13 +39,16 @@ class ProjectAdmin extends Admin
     {
         $listMapper
             ->add('Id')
-            ->addIdentifier('Title')
+            ->addIdentifier('Title', null, ['label' => $this->labels['title']])
+            ->add('Link', null, ['label' => $this->labels['link']])
             ->add('Active', null, [
-                'editable' => true,
+                'editable'  => true,
+                'label'     => $this->labels['active']
             ])
-            ->add('User')
+            ->add('User', null, ['label' => $this->labels['user']])
             ->add('_action', 'actions', array(
-                'actions' => array(
+                'label'     => $this->labels['actions'],
+                'actions'   => array(
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
@@ -59,13 +71,10 @@ class ProjectAdmin extends Admin
                 ),
                 'help' => 'Максимальная длина 255 символов.'
             ))
-            ->add('Title', null,[
-                'label' => 'Название'
-            ])
-            ->add('Active', null,[
-                'label' => 'Активен'
-            ])
-            ->add('User')
+            ->add('Title', null, ['label' => $this->labels['title']])
+            ->add('Active', null, ['label' => $this->labels['active']])
+            ->add('Link', null, ['label' => $this->labels['link']])
+            ->add('User', null, ['label' => $this->labels['user']])
         ;
     }
 
@@ -76,9 +85,10 @@ class ProjectAdmin extends Admin
     {
         $showMapper
 //            ->add('Id')
-            ->add('Title')
-            ->add('Active')
-            ->add('UserId')
+            ->add('Title', null, ['label' => $this->labels['title']])
+            ->add('Active', null, ['label' => $this->labels['active']])
+            ->add('Link', null, ['label' => $this->labels['link']])
+            ->add('User', null, ['label' => $this->labels['user']])
         ;
     }
 }
