@@ -3,6 +3,7 @@
 namespace ItBlaster\MainBundle\Service;
 
 use FOS\UserBundle\Propel\User;
+use ItBlaster\MainBundle\Model\Project;
 use ItBlaster\MainBundle\Model\ProjectQuery;
 use ItBlaster\MainBundle\Service\base\BaseProjectService;
 
@@ -42,5 +43,17 @@ class ProjectService extends BaseProjectService
                 ->filterByActive(true)
             ->_endif()
             ->findOne();
+    }
+
+    /**
+     * Проверка прав у пользователя на проект
+     *
+     * @param User $user
+     * @param Project $project
+     * @return bool
+     */
+    public function hasCredential(User $user, Project $project)
+    {
+        return ($project->getUserId() == $user->getId() || $user->hasRole('ROLE_SUPER_ADMIN'));
     }
 }

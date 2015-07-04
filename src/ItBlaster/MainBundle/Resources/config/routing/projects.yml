@@ -15,3 +15,15 @@ project-add:
   pattern:  /project-add
   defaults:
     _controller: ItBlasterMainBundle:Projects:add
+
+#Редактирование проекта
+project-edit:
+  pattern:  /project-edit/{project_name}
+  defaults:
+    _controller: ItBlasterMainBundle:Projects:edit
+
+#Удаление проекта
+project-delete:
+  pattern:  /project-delete/{project_name}
+  defaults:
+    _controller: ItBlasterMainBundle:Projects:delete

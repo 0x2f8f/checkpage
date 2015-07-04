@@ -1,0 +1,22 @@
+{# Редактирование проекта #}
+{% extends 'ItBlasterMainBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="col-lg-6">
+        <form action="{{ path('project-edit',{'project_name':project.slug}) }}" method="post" {{ form_enctype(form) }} id="project-add-form" class="form" role="form">
+            {{ form_errors(form) }}
+
+            <div class="form-group">
+                {{ form_label(form.title) }}
+                {{ form_errors(form.title) }}
+                {{ form_widget(form.title) }}
+            </div>
+
+            {{ form_rest(form) }}
+
+            <div>
+                <button type="submit" class="btn">Сохранить</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
