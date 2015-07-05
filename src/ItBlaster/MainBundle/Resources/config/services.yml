@@ -1,7 +1,14 @@
 parameters:
     project_service.class:  ItBlaster\MainBundle\Service\ProjectService
+    check_service.class:  ItBlaster\MainBundle\Service\CheckService
 
 services:
+
+#Сервис для работы с проектами
     project_service:
         class:      %project_service.class%
         arguments:  [@request_stack]
+
+#Сервис проверки доступности ссылок
+    check_service:
+        class:      %check_service.class%
