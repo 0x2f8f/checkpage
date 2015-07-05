@@ -80,7 +80,15 @@ class ProjectLinkController extends Controller
     //удаление ссылки
     public function deleteAction(Request $request, $id)
     {
+        $project_link = $this->getProjectLink($id);
+        $project = $this->getProjectByLink($project_link);
+        $project_link->delete();
+        $this->addFlash('success','Ссылка успешно удалена');
 
+        //редиректим на страницу просмотра проекта
+        return $this->redirect($this->generateUrl('project-show', array(
+            'project_name' => $project->getSlug()
+        )));
     }
 
     /**

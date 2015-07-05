@@ -56,6 +56,7 @@ class ProjectsController extends Controller
         if ($form->isValid()) {
             try {
                 $project = $this->addProject($form);
+                $this->addFlash('success','Проект успешно создан');
 
                 //редиректим на страницу просмотра проекта
                 return $this->redirect($this->generateUrl('project-show', array(
@@ -89,6 +90,7 @@ class ProjectsController extends Controller
                 /** @var Project $project */
                 $project = $form->getData();
                 $project->save();
+                $this->addFlash('success','Проект успешно обновлён');
 
                 //редиректим на страницу просмотра проекта
                 return $this->redirect($this->generateUrl('project-show', array(
@@ -116,6 +118,7 @@ class ProjectsController extends Controller
     {
         $project = $this->getProject($project_name); //ищем проект
         $project->delete(); //удаляем проект
+        $this->addFlash('success','Проект успешно удалён');
 
         return $this->redirect($this->generateUrl('projects')); //редиректим на страницу списка проектов
     }
@@ -136,6 +139,7 @@ class ProjectsController extends Controller
         $project = new Project();
         $project
             ->setTitle($data['title'])
+            ->setLink($data['link'])
             ->setActive(true)
             ->setUser($this->getUser())
             ->save();
