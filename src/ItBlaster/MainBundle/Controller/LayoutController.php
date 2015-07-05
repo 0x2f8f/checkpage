@@ -74,6 +74,8 @@ class LayoutController extends Controller
             'project-show'                      => 'Проекты',
             'project-add'                       => 'Добавление проекта',
             'project-edit'                      => 'Редактирование проекта',
+            'project-link-add'                  => 'Добавление ссылки',
+            'project-link-edit'                 => 'Редактирование ссылки',
             'reports'                           => 'Отчёты',
             'fos_user_security_login'           => 'Авторизация',
             'fos_user_registration_register'    => 'Регистрация',

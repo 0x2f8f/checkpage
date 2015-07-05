@@ -30,9 +30,9 @@
                                 <span class="btn-xs btn-danger">FAIL</span>
                             {% endif %}
                         </td>
-                        <td>{{ link.status_code }}</td>
+                        <td>{{ link.statusCode }}</td>
                         <td>{{ link.lastCheck('d.m.Y H:i:s') }}</td>
-                        <td>
+                        <td class="project_table_actions">
                             <a href="" title="Обновить"><img src="{{ asset('images/icons/sinchronize.png') }}" alt="Обновить" /></a>
                             <a href="{{ path('project-link-edit',{'id':link.id}) }}" title="Редактировать"><img src="{{ asset('images/icons/edit.png') }}" alt="Редактировать" /></a>
                             <a href="{{ path('project-link-delete',{'id':link.id}) }}" class="project_link_delete" title="Удалить"><img src="{{ asset('images/icons/delete.png') }}" alt="Удалить" /></a>
@@ -71,7 +71,7 @@
         {% endif %}
 
         <div class="col-lg-12">
-            <a href="{{ path('project-link-add') }}" class="btn btn-sm btn-primary" title="Добавить ссылку">Добавить ссылку</a>
+            <a href="{{ path('project-link-add',{'project_name':project.slug}) }}" class="btn btn-sm btn-primary" title="Добавить ссылку">Добавить ссылку</a>
         </div>
 
     </div>

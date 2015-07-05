@@ -1,6 +1,8 @@
 <?php
 namespace ItBlaster\MainBundle\Controller\traits;
 
+use ItBlaster\MainBundle\Model\Project;
+use ItBlaster\MainBundle\Model\ProjectLink;
 use ItBlaster\MainBundle\Service\ProjectService;
 
 trait ProjectServiceTrait {
@@ -44,6 +46,23 @@ trait ProjectServiceTrait {
         if (!$project) {
             throw $this->createNotFoundException('Project not fonud');
         }
+        $this->checkPermissions($project);
+        return $project;
+    }
+
+    /**
+     * Возвращает проект по ссылке
+     *
+     * @param ProjectLink $project_link
+     * @return \ItBlaster\MainBundle\Model\Project
+     */
+    private function getProjectByLink(ProjectLink $project_link)
+    {
+        $project = $project_link->getProject();
+        if (!$project) {
+            throw $this->createNotFoundException('Project not fonud');
+        }
+        $this->checkPermissions($project);
         return $project;
     }
 }

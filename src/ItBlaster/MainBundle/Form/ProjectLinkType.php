@@ -7,15 +7,15 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * Форма добавления нового проекта пользователя
+ * Форма добавления ссылки проекта
  *
- * Class ProjectType
+ * Class ProjectLinkType
  * @package ItBlaster\MainBundle\Form
  */
-class ProjectType extends BaseAbstractType
+class ProjectLinkType extends BaseAbstractType
 {
     protected $options = array(
-        'name' => 'project',
+        'name' => 'project_link',
     );
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -38,6 +38,11 @@ class ProjectType extends BaseAbstractType
                 'required'  => TRUE,
                 'attr' => array(
                     'class' => 'form-control',
+                ),
+                'constraints' => array(
+                    new NotBlank(array(
+                        'message' => 'Поле обязательно для заполнения'
+                    )),
                 )
             ))
         ;

@@ -1,1 +1,20 @@
 {# редактирование ссылки #}
+{% extends 'ItBlasterMainBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="col-lg-6">
+        <p class="help-block">Проект: <a href="{{ path('project-show',{'project_name':project.slug}) }}">{{ project.title }}</a></p>
+
+        <form action="{{ path('project-link-edit',{'id':link.id}) }}" method="post" {{ form_enctype(form) }} id="project-link-add-form" class="form" role="form">
+            {{ form_errors(form) }}
+
+            {% include 'ItBlasterMainBundle:ProjectLink:form_fields.html.twig' with {'form': form} %} {# Поля формы #}
+
+            {{ form_rest(form) }}
+
+            <div>
+                <button type="submit" class="btn">Сохранить</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

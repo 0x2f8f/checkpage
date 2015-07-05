@@ -81,7 +81,6 @@ class ProjectsController extends Controller
     public function editAction(Request $request, $project_name)
     {
         $project = $this->getProject($project_name); //ищем проект
-        $this->checkPermissions($project); //проверяем наличие прав у пользователя на проект
 
         $form = $this->createForm('project', $project);
         $form->handleRequest($request);
@@ -116,7 +115,6 @@ class ProjectsController extends Controller
     public function deleteAction(Request $request, $project_name)
     {
         $project = $this->getProject($project_name); //ищем проект
-        $this->checkPermissions($project); //проверяем наличие прав у пользователя на проект
         $project->delete(); //удаляем проект
 
         return $this->redirect($this->generateUrl('projects')); //редиректим на страницу списка проектов
