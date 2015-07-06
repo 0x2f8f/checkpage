@@ -5,10 +5,13 @@ namespace ItBlaster\MainBundle\Controller;
 use ItBlaster\MainBundle\Model\Project;
 use ItBlaster\MainBundle\Model\ProjectLink;
 use ItBlaster\MainBundle\Model\ProjectLinkQuery;
+use ItBlaster\MainBundle\Service\CheckService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use ItBlaster\MainBundle\Controller\traits\ProjectServiceTrait;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProjectLinkController extends Controller
 {
@@ -77,7 +80,15 @@ class ProjectLinkController extends Controller
         ]);
     }
 
-    //удаление ссылки
+    /**
+     * Удаление ссылки
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Exception
+     * @throws \PropelException
+     */
     public function deleteAction(Request $request, $id)
     {
         $project_link = $this->getProjectLink($id);
@@ -89,6 +100,31 @@ class ProjectLinkController extends Controller
         return $this->redirect($this->generateUrl('project-show', array(
             'project_name' => $project->getSlug()
         )));
+    }
+
+    /**
+     * Строчка конкретной ссылки в таблице ссылок проекта
+     *
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
+    public function updateAction(Request $request, $id)
+    {
+        if($request->isXmlHttpRequest()){
+            $project_link = $this->getProjectLink($id);
+            $project = $this->getProjectByLink($project_link);
+
+            $project_link = $this->getCheckService()->updateLink($project_link); //обновляем информацию по ссылке
+
+            $html = $this->renderView('ItBlasterMainBundle:Projects:link_tr.html.twig', array(
+                'link' => $project_link,
+            ));
+
+            $response = new JsonResponse(array('html'=>$html));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
     }
 
     /**
@@ -126,5 +162,15 @@ class ProjectLinkController extends Controller
             throw $this->createNotFoundException('Project link not fonud');
         }
         return $project_link;
+    }
+
+    /**
+     * Сервис проверки доступности ссылки
+     *
+     * @return CheckService
+     */
+    private function getCheckService()
+    {
+        return $this->container->get('check_service');
     }
 }

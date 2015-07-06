@@ -2,7 +2,7 @@
 
 {% block javascripts %}
     {% javascripts
-    '@ItBlasterMainBundle/Resources/public/js/frontend/projects/show.js'
+    '@ItBlasterMainBundle/Resources/public/js/frontend/projects.js'
     filter='?yui_js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -11,7 +11,7 @@
 
 {% block content %}
     <div>
-        <h2>{{ project.title }}</h2>
+        <h2>{{ project.title }} <span class="project_title_actions">{% include 'ItBlasterMainBundle:Projects:actions.html.twig' with {'project': project} %}</span>{# Действия над проектом #}</h2>
         {% if project.link %}
             <p class="help-block">
                 <a href="{{ project.link }}" target="_blank" title="Открыть в новом окне">{{ project.link }} <img src="{{ asset('images/icons/external_link.png') }}" /></a>
@@ -28,6 +28,7 @@
                     <th>Ссылка</th>
                     <th>Статус</th>
                     <th>Код ответа</th>
+                    <th>Время ответа</th>
                     <th>Последнее обновление</th>
                     <th>Действия</th>
                 </tr>
@@ -35,22 +36,7 @@
                 <tbody>
                 {% for link in project.links %}
                     <tr>
-                        <td>{{ link.title }}</td>
-                        <td><a href="{{ link.link }}" target="_blank" title="Открыть в новом окне">{{ link.getLinkShort }} <img src="{{ asset('images/icons/external_link.png') }}" /></a></td>
-                        <td>
-                            {% if(link.status) %}
-                                <span class="btn-xs btn-success">OK</span>
-                            {% else %}
-                                <span class="btn-xs btn-danger">FAIL</span>
-                            {% endif %}
-                        </td>
-                        <td>{{ link.statusCode }}</td>
-                        <td>{{ link.lastCheck('d.m.Y H:i:s') }}</td>
-                        <td class="project_table_actions">
-                            <a href="" title="Обновить"><img src="{{ asset('images/icons/sinchronize.png') }}" alt="Обновить" /></a>
-                            <a href="{{ path('project-link-edit',{'id':link.id}) }}" title="Редактировать"><img src="{{ asset('images/icons/edit.png') }}" alt="Редактировать" /></a>
-                            <a href="{{ path('project-link-delete',{'id':link.id}) }}" class="project_link_delete" title="Удалить"><img src="{{ asset('images/icons/delete.png') }}" alt="Удалить" /></a>
-                        </td>
+                        {% include 'ItBlasterMainBundle:Projects:link_tr.html.twig' with {'link': link} %} {# Действия над проектом #}
                     </tr>
                 {% endfor %}
                 {#

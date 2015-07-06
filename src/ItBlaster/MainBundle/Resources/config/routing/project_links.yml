@@ -15,3 +15,9 @@ project-link-delete:
   pattern:  /project-link-delete/{id}
   defaults:
     _controller: ItBlasterMainBundle:ProjectLink:delete
+
+#Обновление статуса ссылки
+project-link-update:
+  pattern:  /project-link-update/{id}
+  defaults:
+    _controller: ItBlasterMainBundle:ProjectLink:update

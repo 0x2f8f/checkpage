@@ -2,7 +2,7 @@
 
 {% block javascripts %}
     {% javascripts
-    '@ItBlasterMainBundle/Resources/public/js/frontend/projects/list.js'
+    '@ItBlasterMainBundle/Resources/public/js/frontend/projects.js'
     filter='?yui_js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -48,9 +48,7 @@
                                     <a href="" title="Опубликовать"><img src="{{ asset('images/icons/unpublish.png') }}" alt="Опубликовать" /></a>
                                 {% endif %}
                                 #}
-                                <a href="" title="Обновить"><img src="{{ asset('images/icons/sinchronize.png') }}" alt="Обновить" /></a>
-                                <a href="{{ path('project-edit',{'project_name':project.slug}) }}" title="Редактировать"><img src="{{ asset('images/icons/edit.png') }}" alt="Редактировать" /></a>
-                                <a href="{{ path('project-delete',{'project_name':project.slug}) }}" class="project_delete" title="Удалить"><img src="{{ asset('images/icons/delete.png') }}" alt="Удалить" /></a>
+                                {% include 'ItBlasterMainBundle:Projects:actions.html.twig' with {'project': project} %} {# Действия над проектом #}
                             </td>
                         </tr>
                     {% endfor %}

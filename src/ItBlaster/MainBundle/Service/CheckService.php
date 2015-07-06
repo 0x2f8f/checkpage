@@ -2,6 +2,8 @@
 
 namespace ItBlaster\MainBundle\Service;
 
+use ItBlaster\MainBundle\Model\ProjectLink;
+
 class CheckService
 {
     /**
@@ -62,5 +64,25 @@ class CheckService
         curl_close($ch);
 
         return $total_time;
+    }
+
+    /**
+     * Обновление информации по ссылке
+     *
+     * @param ProjectLink $project_link
+     * @return ProjectLink
+     * @throws \Exception
+     * @throws \PropelException
+     */
+    public function updateLink(ProjectLink $project_link)
+    {
+        $info = $this->getCurlInfo($project_link->getLink());
+        $project_link
+            ->setStatus($info['http_code'] == '200')
+            ->setStatusCode($info['http_code'])
+            ->setLastCheck(time())
+            ->setTotalTime($info['total_time'])
+            ->save();
+        return $project_link;
     }
 }
