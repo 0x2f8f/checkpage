@@ -111,12 +111,13 @@ class ProjectLinkController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        if($request->isXmlHttpRequest()){
-            $project_link = $this->getProjectLink($id);
-            $project = $this->getProjectByLink($project_link);
+        $project_link = $this->getProjectLink($id);
+        $project = $this->getProjectByLink($project_link);
 
-            $project_link = $this->getCheckService()->updateLink($project_link); //обновляем информацию по ссылке
+        $project_link = $this->getCheckService()->updateLink($project_link); //обновляем информацию по ссылке
 
+        //ajax-запрс
+        if ($request->isXmlHttpRequest()) {
             $html = $this->renderView('ItBlasterMainBundle:Projects:link_tr.html.twig', array(
                 'link' => $project_link,
             ));
@@ -124,6 +125,11 @@ class ProjectLinkController extends Controller
             $response = new JsonResponse(array('html'=>$html));
             $response->headers->set('Content-Type', 'application/json');
             return $response;
+        } else {
+            //редиректим на страницу просмотра проекта
+            return $this->redirect($this->generateUrl('project-show', array(
+                'project_name' => $project->getSlug()
+            )));
         }
     }
 
