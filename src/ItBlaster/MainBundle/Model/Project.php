@@ -19,11 +19,15 @@ class Project extends BaseProject
     /**
      * Ссылки проекта
      *
+     * @param bool $active
      * @return \PropelObjectCollection
      */
-    public function getLinks()
+    public function getLinks($active = false)
     {
         $c = new \Criteria();
+        if ($active) {
+            $c->add(ProjectLinkPeer::ACTIVE,true);
+        }
         $c->addAscendingOrderByColumn(ProjectLinkPeer::TITLE);
         return $this->getProjectLinks($c);
     }

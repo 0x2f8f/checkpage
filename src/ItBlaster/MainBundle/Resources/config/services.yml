@@ -1,6 +1,7 @@
 parameters:
     project_service.class:  ItBlaster\MainBundle\Service\ProjectService
-    check_service.class:  ItBlaster\MainBundle\Service\CheckService
+    check_service.class:    ItBlaster\MainBundle\Service\CheckService
+    mail_service.class:     ItBlaster\MainBundle\Service\MailService
 
 services:
 
@@ -12,3 +13,7 @@ services:
 #Сервис проверки доступности ссылок
     check_service:
         class:      %check_service.class%
+
+    mail_service:
+        class:      %mail_service.class%
+        arguments:  [@mailer, %mailer_user%, %mailer_user_title%, @templating]

@@ -56,4 +56,20 @@ class ProjectService extends BaseProjectService
     {
         return ($project->getUserId() == $user->getId() || $user->hasRole('ROLE_SUPER_ADMIN'));
     }
+
+    /**
+     * Все проекты пользователей
+     *
+     * @param bool $active
+     * @return \PropelObjectCollection
+     */
+    public function getProjectsAll($active = true)
+    {
+        return ProjectQuery::create()
+            ->_if($active)
+                ->filterByActive(true)
+            ->_endif()
+            ->orderByTitle()
+            ->find();
+    }
 }

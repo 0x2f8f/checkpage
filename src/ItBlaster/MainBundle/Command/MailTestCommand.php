@@ -1,12 +1,12 @@
 <?php
 namespace ItBlaster\MainBundle\Command;
 
-use ItBlaster\MainBundle\Service\CheckService;
+use ItBlaster\MainBundle\Service\MailService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CheckTestCommand extends ContainerAwareCommand
+class MailTestCommand extends ContainerAwareCommand
 {
     protected $output;
 
@@ -25,12 +25,12 @@ class CheckTestCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('check:test')
-            ->setDescription('Проверка ссылки artsofte.ru')
+            ->setName('mail:test')
+            ->setDescription('отправка тестового письма')
 //            ->addArgument('name',InputArgument::OPTIONAL,'Who do you want to greet?')
 //            ->addOption('yell',null,InputOption::VALUE_NONE,'If set, the task will yell in uppercase letters')
             ->setHelp(<<<EOF
-Таск <info>%command.name%</info> предназначен проверки работоспособности сервиса проверки доступности сайта. Запрос отправляется на адрес artsofte.ru:
+Таск <info>%command.name%</info> предназначен для тестирования работы почты
 
 <info>php %command.full_name%</info>
 
@@ -42,21 +42,23 @@ EOF
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->output = $output;
-
-        $url = 'http://www.artsofte.ru/';
-
-        $info = $this->getCheckService()->getCurlInfo($url);
-        $this->log('<comment>Status code:</comment> '.$info['http_code']);
-        $this->log('<comment>Total time:</comment> '.$info['total_time']);
+        $email = '0x2f8f@gmail.com';
+        $mail_service = $this->getMailService();
+        $result_send = $mail_service->sendeMail('Тестовое письмо','Тестовое содержимое письма',array($email));
+        if ($result_send) {
+            $this->log('Письмо успешно отправлено на <info>'.$email.'</info>');
+        } else {
+            $this->log('При отправке письма возникли проблемы');
+        }
     }
 
     /**
-     * Сервис ChecService
+     * Почтовый сервис
      *
-     * @return CheckService
+     * @return MailService
      */
-    private function getCheckService()
+    private function getMailService()
     {
-        return $this->getContainer()->get('check_service');
+        return $this->getContainer()->get('mail_service');
     }
 }
