@@ -13,7 +13,7 @@ class Project extends BaseProject
      */
     public function getUserEmail()
     {
-        return $this->getUser() ? $this->getUser()->getEmail() : '';
+        return $this->getEmail() ? $this->getEmail() : ($this->getUser() ? $this->getUser()->getEmail() : '');
     }
 
     /**

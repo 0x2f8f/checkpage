@@ -33,6 +33,13 @@ class ProjectType extends BaseAbstractType
                     )),
                 )
             ))
+            ->add('email', 'text', array(
+                'label'     => 'E-mail для уведомлений',
+                'required'  => FALSE,
+                'attr' => array(
+                    'class' => 'form-control',
+                )
+            ))
             ->add('link', 'text', array(
                 'label'     => 'Ссылка',
                 'required'  => TRUE,

@@ -14,6 +14,7 @@ class ProjectAdmin extends Admin
         'title'     => 'Название',
         'active'    => 'Активен',
         'link'      => 'Ссылка',
+        'email'     => 'E-mail для уведомлений',
         'user'      => 'Пользователь',
         'actions'   => 'Действия'
     ];
@@ -27,6 +28,7 @@ class ProjectAdmin extends Admin
 //            ->add('Id')
             ->add('Title')
             ->add('Litle')
+            ->add('Email')
             ->add('Active')
             ->add('User')
         ;
@@ -41,6 +43,7 @@ class ProjectAdmin extends Admin
             ->add('Id')
             ->addIdentifier('Title', null, ['label' => $this->labels['title']])
             ->add('Link', null, ['label' => $this->labels['link']])
+            ->add('Email', null, ['label' => $this->labels['email']])
             ->add('Active', null, [
                 'editable'  => true,
                 'label'     => $this->labels['active']
@@ -72,6 +75,7 @@ class ProjectAdmin extends Admin
                 'help' => 'Максимальная длина 255 символов.'
             ))
             ->add('Title', null, ['label' => $this->labels['title']])
+            ->add('Email', null, ['label' => $this->labels['email']])
             ->add('Active', null, ['label' => $this->labels['active']])
             ->add('Link', null, ['label' => $this->labels['link']])
             ->add('User', null, ['label' => $this->labels['user']])
@@ -86,6 +90,7 @@ class ProjectAdmin extends Admin
         $showMapper
 //            ->add('Id')
             ->add('Title', null, ['label' => $this->labels['title']])
+            ->add('Email', null, ['label' => $this->labels['email']])
             ->add('Active', null, ['label' => $this->labels['active']])
             ->add('Link', null, ['label' => $this->labels['link']])
             ->add('User', null, ['label' => $this->labels['user']])
