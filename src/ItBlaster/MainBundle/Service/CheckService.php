@@ -6,6 +6,8 @@ use ItBlaster\MainBundle\Model\ProjectLink;
 
 class CheckService
 {
+    private $CURLOPT_TIMEOUT = 15;
+
     /**
      * Результат выполнения запроса на указанный адрес
      * Ответ получаем вместе с телом страницы
@@ -18,7 +20,7 @@ class CheckService
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch, CURLOPT_TIMEOUT,10);
+        curl_setopt($ch, CURLOPT_TIMEOUT,$this->getCurloptTimeout());
         $output = curl_exec($ch);
         $httpcode = curl_getinfo($ch);
         curl_close($ch);
@@ -39,7 +41,7 @@ class CheckService
         curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
         curl_setopt($ch, CURLOPT_NOBODY, true);    // we don't need body
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch, CURLOPT_TIMEOUT,10);
+        curl_setopt($ch, CURLOPT_TIMEOUT,$this->getCurloptTimeout());
         $output = curl_exec($ch);
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
@@ -58,7 +60,7 @@ class CheckService
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch, CURLOPT_TIMEOUT,10);
+        curl_setopt($ch, CURLOPT_TIMEOUT,$this->getCurloptTimeout());
         $output = curl_exec($ch);
         $total_time = curl_getinfo($ch, CURLINFO_TOTAL_TIME);
         curl_close($ch);
@@ -84,5 +86,10 @@ class CheckService
             ->setTotalTime($info['total_time'])
             ->save();
         return $project_link;
+    }
+
+    private function getCurloptTimeout()
+    {
+        return $this->CURLOPT_TIMEOUT;
     }
 }
