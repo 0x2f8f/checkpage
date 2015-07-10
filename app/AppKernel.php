@@ -33,6 +33,7 @@ class AppKernel extends Kernel
             //new JMS\TranslationBundle\JMSTranslationBundle(),
 
             new ItBlaster\MainBundle\ItBlasterMainBundle(),
+            new ItBlaster\FixturesBundle\ItBlasterFixturesBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

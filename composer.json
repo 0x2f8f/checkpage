@@ -25,7 +25,8 @@
         "knplabs/knp-menu-bundle": "1.1.2",
         "lunetics/locale-bundle": "2.2.*",
         "propel/propel-bundle": "~1.4",
-        "willdurand/propel-typehintable-behavior": "dev-master"
+        "willdurand/propel-typehintable-behavior": "dev-master",
+        "it-blaster/fixtures-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
