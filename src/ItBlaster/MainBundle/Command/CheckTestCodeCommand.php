@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CheckTestCommand extends ContainerAwareCommand
+class CheckTestCodeCommand extends ContainerAwareCommand
 {
     protected $output;
 
@@ -25,8 +25,8 @@ class CheckTestCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('check:test')
-            ->setDescription('Проверка ссылки artsofte.ru')
+            ->setName('check:test:code')
+            ->setDescription('Код статуса ответа от artsofte.ru')
 //            ->addArgument('name',InputArgument::OPTIONAL,'Who do you want to greet?')
 //            ->addOption('yell',null,InputOption::VALUE_NONE,'If set, the task will yell in uppercase letters')
             ->setHelp(<<<EOF

@@ -88,6 +88,29 @@ class CheckService
         return $project_link;
     }
 
+    /**
+     * HTML страницы
+     *
+     * @param $url
+     * @return string
+     */
+    public function getHtml($url)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
+        curl_setopt($ch, CURLOPT_NOBODY, false);    // we need body
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_TIMEOUT,$this->getCurloptTimeout());
+        $response = curl_exec($ch);
+
+        $header_size = curl_getinfo($ch,CURLINFO_HEADER_SIZE);
+        $header = substr($response, 0, $header_size);
+        $body = substr( $response, $header_size );
+        curl_close($ch);
+
+        return $body;
+    }
+
     private function getCurloptTimeout()
     {
         return $this->CURLOPT_TIMEOUT;
