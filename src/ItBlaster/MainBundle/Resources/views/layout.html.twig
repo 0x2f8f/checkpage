@@ -1,40 +1,40 @@
 {% extends '::base.html.twig' %}
 
-    {% block body %}
-        <div id="{{ app.user ? 'wrapper' : 'wrapper-not-authorized' }}">
+        {% block body %}
+            <div id="{{ app.user ? 'wrapper' : 'wrapper-not-authorized' }}">
 
-            {{ render(controller("ItBlasterMainBundle:Layout:header", {'request':app.request})) }} {# header #}
+                {{ render(controller("ItBlasterMainBundle:Layout:header", {'request':app.request})) }} {# header #}
 
 
-            <div id="page-wrapper">
+                <div id="page-wrapper">
 
-                <div class="container-fluid">
+                    <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="row">
-                        <div class="col-lg-12">
+                        <!-- Page Heading -->
+                        <div class="row">
+                            <div class="col-lg-12">
 
-                            {{ render(controller("ItBlasterMainBundle:Layout:title", {'request':app.request})) }} {# title #}
-                            {{ render(controller("ItBlasterMainBundle:Layout:breadcrumbs", {'request':app.request})) }} {# breadcrumbs #}
+                                {{ render(controller("ItBlasterMainBundle:Layout:title", {'request':app.request})) }} {# title #}
+                                {{ render(controller("ItBlasterMainBundle:Layout:breadcrumbs", {'request':app.request})) }} {# breadcrumbs #}
 
-                            <div id="content">
-                                {% block content %}
+                                <div id="content">
+                                    {% block content %}
 
-                                {% endblock content %}
+                                    {% endblock content %}
+                                </div>
                             </div>
                         </div>
+                        <!-- /.row -->
+
                     </div>
-                    <!-- /.row -->
+                    <!-- /.container-fluid -->
 
                 </div>
-                <!-- /.container-fluid -->
+                <!-- /#page-wrapper -->
+
+                {{ render(controller("ItBlasterMainBundle:Layout:footer", {'request':app.request})) }} {# footer #}
 
             </div>
-            <!-- /#page-wrapper -->
+            <!-- /#wrapper -->
 
-            {{ render(controller("ItBlasterMainBundle:Layout:footer", {'request':app.request})) }} {# footer #}
-
-        </div>
-        <!-- /#wrapper -->
-
-    {% endblock body %}
+        {% endblock body %}

@@ -76,13 +76,13 @@ EOF
                             ->setStatus(0)
                             ->save();
                         $this->log('---------------------------------> Отправляем плохое письмо');
-                        $this->sendBadMail($project,$bad_links); //отправляем письмо
+                        $this->resultSendMail($this->sendBadMail($project,$bad_links)); //отправляем письмо
                     } else if (!count($bad_links) && !$project->getStatus()) { //нет плохих ссылок, но были, то отправляем письмо, что всё хорошо
                         $project
                             ->setStatus(1)
                             ->save();
                         $this->log('---------------------------------> Отправляем хорошее письмо');
-                        $this->sendGooMail($project); //отправляем письмо
+                        $this->resultSendMail($this->sendGooMail($project)); //отправляем письмо
                     }
                 }
                 $this->log('');
@@ -90,6 +90,16 @@ EOF
         } else {
             $this->log('нет ни одного проекта на обновление');
         }
+    }
+
+    /**
+     * Пишем о результатах отправки письма
+     *
+     * @param $result_send
+     */
+    private function resultSendMail($result_send)
+    {
+        $this->log($result_send ? 'письмо успешно отправлено' : 'при отправке письма возникли проблемы') ;
     }
 
     /**
@@ -103,12 +113,24 @@ EOF
     {
         $mail_service = $this->getMailService();
         $subject = "Проблемы с доступностью сайта ".$project->getTitle().' ('.$project->getLink().')';
-        $body = "При проверке ссылок сайта ".$project->getTitle().' '.$project->getLink().' были недоступны следующие ссылки:<br /><ul>';
+        $body = "При проверке ссылок сайта <a href='".$project->getLink()."'>".$project->getTitle().'</a> были недоступны следующие ссылки:<br /><br />
+        <table border="1">
+            <tr>
+                <th>Ссылка</th>
+                <th>Код ответа</th>
+                <th>Время ответа</th>
+            </tr>';
         foreach ($bad_links as $bad_link) {
             /** @var ProjectLink $bad_link */
-            $body.='<li><a href="'.$bad_link->getLink().'" target="_blank">'.$bad_link->getTitle().'</a> Код ответа:<b>'.$bad_link->getStatusCode().'</b> Время ответа:<b>'.$bad_link->getTotalTime().'</b></li>';
+            $body.='<tr>
+                        <td><a href="'.$bad_link->getLink().'" target="_blank">'.$bad_link->getTitle().'</a></td>
+                        <td>'.$bad_link->getStatusCode().'</td>
+                        <td>'.$bad_link->getTotalTime().'</td>
+                    </tr>';
         }
-        $body.='</ul>--------<br />Checksite';
+        $body.="</table><br />
+            --------<br />
+            <a href='http://checkpage.ru'>CheckPage.ru</a>";
         $email = $project->getUserEmail();
         return $mail_service->sendeMail($subject,$body,array($email));
     }
@@ -123,7 +145,7 @@ EOF
     {
         $mail_service = $this->getMailService();
         $subject = "Доступ к сайту ".$project->getTitle().' полностью восстановлен';
-        $body = "Доступ к сайту ".$project->getTitle()." полностью восстановлен.<br /> Сайт снова доступен по ссылке ".$project->getLink().'<br /><br />--------<br />Checksite';
+        $body = "Доступ к сайту <a href='".$project->getLink()."'>".$project->getTitle()."</a> полностью восстановлен.<br /><br />--------<br /><a href='http://checkpage.ru'>CheckPage.ru</a>";
         $email = $project->getUserEmail();
         return $mail_service->sendeMail($subject,$body,array($email));
     }
