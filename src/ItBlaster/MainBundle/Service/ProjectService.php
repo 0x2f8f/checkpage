@@ -72,4 +72,61 @@ class ProjectService extends BaseProjectService
             ->orderByTitle()
             ->find();
     }
+
+    /**
+     * Добавляем проект и ссылку
+     *
+     * @param User $user
+     * @param $link
+     * @return bool
+     * @throws \Exception
+     * @throws \PropelException
+     */
+    public function addProjectByLink(User $user, $link)
+    {
+        if ($this->projectIsset($link)) {
+            return false;
+        }
+
+        $title = $link;
+        $title_params = explode('//',$link);
+        if (isset($title_params[1])) {
+            $title_params2 = explode('/', $title_params[1]);
+            $title = $title_params2[0];
+        }
+
+        //добавляем проект
+        $project = new Project();
+        $project
+            ->setTitle($title)
+            ->setActive(true)
+            ->setLink($link)
+            ->setUser($user)
+            ->save();
+
+        //проверяем что проект создался
+        if (!$project) {
+            throw new \Exception('Не удалось добавить проект '.$title);
+        }
+
+        //добавляем сслыку
+        if (!$project->addLink($link, 'Главная')) {
+            throw new \Exception('Не удалось добавить ссылку к проекту '.$title);
+        }
+
+        return true;
+    }
+
+    /**
+     * Проверка что проект по указанной ссылке уже существует
+     *
+     * @param $link
+     * @return int
+     */
+    public function projectIsset($link)
+    {
+        return ProjectQuery::create()
+            ->filterByLink($link)
+            ->count();
+    }
 }

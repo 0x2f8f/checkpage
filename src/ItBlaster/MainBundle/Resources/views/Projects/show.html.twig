@@ -14,7 +14,7 @@
         <h2>{{ project.title }} <span class="project_title_actions">{% include 'ItBlasterMainBundle:Projects:actions.html.twig' with {'project': project} %}</span>{# Действия над проектом #}</h2>
         {% if project.link %}
             <p class="help-block">
-                <a href="{{ project.link }}" target="_blank" title="Открыть в новом окне">{{ project.link }} <img src="{{ asset('images/icons/external_link.png') }}" /></a>
+                <a href="{{ project.linkUrl }}" target="_blank" title="Открыть в новом окне">{{ project.link }} <img src="{{ asset('images/icons/external_link.png') }}" /></a>
             </p>
         {% endif %}
 

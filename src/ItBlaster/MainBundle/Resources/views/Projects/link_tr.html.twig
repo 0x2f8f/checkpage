@@ -1,6 +1,6 @@
 {# Ссылка проекта в таблице ссылок #}
 <td>{{ link.title }}</td>
-<td><a href="{{ link.link }}" target="_blank" title="Открыть в новом окне">{{ link.getLinkShort }} <img src="{{ asset('images/icons/external_link.png') }}" /></a></td>
+<td><a href="{{ link.linkUrl }}" target="_blank" title="Открыть в новом окне">{{ link.getLinkShort }} <img src="{{ asset('images/icons/external_link.png') }}" /></a></td>
 <td>
     {% if(link.status) %}
         <span class="btn-xs btn-success">OK</span>

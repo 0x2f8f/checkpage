@@ -31,4 +31,36 @@ class Project extends BaseProject
         $c->addAscendingOrderByColumn(ProjectLinkPeer::TITLE);
         return $this->getProjectLinks($c);
     }
+
+    /**
+     * Добавление ссылки в проект
+     *
+     * @param $link
+     * @param $title
+     * @return mixed
+     * @throws \Exception
+     * @throws \PropelException
+     */
+    public function addLink($link, $title)
+    {
+        $project_link = new ProjectLink();
+        $project_link
+            ->setLink($link)
+            ->setTitle($title)
+            ->setActive(true)
+            ->setProject($this)
+            ->save();
+        return $link;
+    }
+
+    /**
+     * Адрес сайта с http
+     *
+     * @return string
+     */
+    public function getlinkUrl()
+    {
+        $link = $this->getLink();
+        return strstr($link,'http') ? $link : 'http://'.$link;
+    }
 }

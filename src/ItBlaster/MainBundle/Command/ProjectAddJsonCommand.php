@@ -3,6 +3,7 @@ namespace ItBlaster\MainBundle\Command;
 
 use FOS\UserBundle\Propel\UserQuery;
 use ItBlaster\MainBundle\Service\CheckService;
+use ItBlaster\MainBundle\Service\ProjectService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -10,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ProjectAddJsonCommand extends Command
+class ProjectAddJsonCommand extends ContainerAwareCommand
 {
     protected $output;
 
@@ -60,9 +61,44 @@ EOF
         if (!$path = $input->getOption('path')) {
             $this->error('Параметр path не указан');
         }
+
+        $links_json = $this->getJson($path);
+        if (!count($links_json)) {
+            $this->error('В json-списке нет ни одной ссылки на добавление');
+        }
+
+        foreach ($links_json as $link) {
+            $result = $this->getProjectService()->addProjectByLink($user, $link);
+            if (!$result) {
+                $this->error('не удалось добавить проект <comment>'.$link.'</comment>', false);
+            } else {
+                $this->log('<info>SUCCESS</info>: '.$link);
+            }
+        }
     }
 
-    public function error($error_message = '', $die = true)
+
+    /**
+     * Ссылки в json формате
+     *
+     * @param $path
+     * @return mixed
+     */
+    private function getJson($path)
+    {
+        $text = file_get_contents($path);
+        $json = json_decode($text, true);
+        $json = isset($json['accounts']) ? $json['accounts'] : $json; //костыль для trade
+        return $json;
+    }
+
+    /**
+     * Вывод ошибки в консоль
+     *
+     * @param string $error_message
+     * @param bool|true $die
+     */
+    private function error($error_message = '', $die = true)
     {
         $this->log('<comment>Error:</comment> '.$error_message);
         if ($die) {
@@ -71,12 +107,22 @@ EOF
     }
 
     /**
-     * Сервис ChecService
+     * Сервис CheckService
      *
      * @return CheckService
      */
     private function getCheckService()
     {
         return $this->getContainer()->get('check_service');
+    }
+
+    /**
+     * Сервис ProjectService
+     *
+     * @return ProjectService
+     */
+    private function getProjectService()
+    {
+        return $this->getContainer()->get('project_service');
     }
 }
