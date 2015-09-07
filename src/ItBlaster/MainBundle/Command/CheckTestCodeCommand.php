@@ -11,9 +11,9 @@ class CheckTestCodeCommand extends ContainerAwareCommand
     protected $output;
 
     /**
-     * Вывод ссобщения в консоль
+     * Вывод сообщения в консоль
      *
-     * @param $message
+     * @param $messagea
      */
     protected function log($message)
     {

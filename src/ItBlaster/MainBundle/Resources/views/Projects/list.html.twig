@@ -29,7 +29,7 @@
                             <td><a href="{{ path('project-show',{'project_name':project.slug}) }}">{{ project.title }}</a></td>
                             <td>
                                 {% if project.link %}
-                                    <a href="{{ project.link }}" target="_blank" title="Открыть в новом окне">{{ project.link }} <img src="{{ asset('images/icons/external_link.png') }}" /></a>
+                                    <a href="{{ project.linkUrl }}" target="_blank" title="Открыть в новом окне">{{ project.link }} <img src="{{ asset('images/icons/external_link.png') }}" /></a>
                                 {% endif %}
                             </td>
                             <td>

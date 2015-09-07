@@ -18,4 +18,15 @@ class ProjectLink extends BaseProjectLink
                 substr($this->getLink(), 0, $length).'...' :
                 $this->getLink();
     }
+
+    /**
+     * Адрес сайта с http
+     *
+     * @return string
+     */
+    public function getlinkUrl()
+    {
+        $link = $this->getLink();
+        return strstr($link,'http') ? $link : 'http://'.$link;
+    }
 }
