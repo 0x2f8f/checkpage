@@ -82,7 +82,7 @@ EOF
                             ->setStatus(1)
                             ->save();
                         $this->log('---------------------------------> Отправляем хорошее письмо');
-                        $this->resultSendMail($this->sendGooMail($project)); //отправляем письмо
+                        $this->resultSendMail($this->sendGoodMail($project)); //отправляем письмо
                     }
                 }
                 $this->log('');
@@ -112,8 +112,8 @@ EOF
     private function sendBadMail(Project $project, array $bad_links)
     {
         $mail_service = $this->getMailService();
-        $subject = "Проблемы с доступностью сайта ".$project->getTitle().' ('.$project->getLink().')';
-        $body = "При проверке ссылок сайта <a href='".$project->getLink()."'>".$project->getTitle().'</a> были недоступны следующие ссылки:<br /><br />
+        $subject = "Проблемы с доступностью сайта ".$project->getTitle().' ('.$project->getlink().')';
+        $body = "При проверке ссылок сайта <a href='".$project->getlinkUrl()."'>".$project->getTitle().'</a> были недоступны следующие ссылки:<br /><br />
         <table border="1">
             <tr>
                 <th>Ссылка</th>
@@ -123,7 +123,7 @@ EOF
         foreach ($bad_links as $bad_link) {
             /** @var ProjectLink $bad_link */
             $body.='<tr>
-                        <td><a href="'.$bad_link->getLink().'" target="_blank">'.$bad_link->getTitle().'</a></td>
+                        <td><a href="'.$bad_link->getlinkUrl().'" target="_blank">'.$bad_link->getTitle().'</a></td>
                         <td>'.$bad_link->getStatusCode().'</td>
                         <td>'.$bad_link->getTotalTime().'</td>
                     </tr>';
@@ -141,11 +141,11 @@ EOF
      * @param Project $project
      * @return bool
      */
-    private function sendGooMail(Project $project)
+    private function sendGoodMail(Project $project)
     {
         $mail_service = $this->getMailService();
         $subject = "Доступ к сайту ".$project->getTitle().' полностью восстановлен';
-        $body = "Доступ к сайту <a href='".$project->getLink()."'>".$project->getTitle()."</a> полностью восстановлен.<br /><br />--------<br /><a href='http://checkpage.ru'>CheckPage.ru</a>";
+        $body = "Доступ к сайту <a href='".$project->getlinkUrl()."'>".$project->getTitle()."</a> полностью восстановлен.<br /><br />--------<br /><a href='http://checkpage.ru'>CheckPage.ru</a>";
         $email = $project->getUserEmail();
         return $mail_service->sendeMail($subject,$body,array($email));
     }
