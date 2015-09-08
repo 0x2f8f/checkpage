@@ -16,6 +16,7 @@ class ProjectAdmin extends Admin
         'link'      => 'Ссылка',
         'email'     => 'E-mail для уведомлений',
         'user'      => 'Пользователь',
+        'port'      => 'Кастомный порт для stage-версии',
         'actions'   => 'Действия'
     ];
 
@@ -49,6 +50,7 @@ class ProjectAdmin extends Admin
                 'label'     => $this->labels['active']
             ])
             ->add('User', null, ['label' => $this->labels['user']])
+            ->add('Port', null, ['label' => $this->labels['port']])
             ->add('_action', 'actions', array(
                 'label'     => $this->labels['actions'],
                 'actions'   => array(
@@ -79,6 +81,7 @@ class ProjectAdmin extends Admin
             ->add('Active', null, ['label' => $this->labels['active']])
             ->add('Link', null, ['label' => $this->labels['link']])
             ->add('User', null, ['label' => $this->labels['user']])
+            ->add('Port', null, ['label' => $this->labels['port']])
         ;
     }
 
@@ -94,6 +97,7 @@ class ProjectAdmin extends Admin
             ->add('Active', null, ['label' => $this->labels['active']])
             ->add('Link', null, ['label' => $this->labels['link']])
             ->add('User', null, ['label' => $this->labels['user']])
+            ->add('Port', null, ['label' => $this->labels['port']])
         ;
     }
 }

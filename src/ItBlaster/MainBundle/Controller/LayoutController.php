@@ -37,7 +37,59 @@ class LayoutController extends Controller
      */
     public function menuLeftAction(Request $request)
     {
-        return $this->render('ItBlasterMainBundle:Layout:menu_left.html.twig', array());
+        $current_route = $request->get('_route'); //имя текущего пути
+        $menu = $this->getMenuLeft($current_route);
+        return $this->render('ItBlasterMainBundle:Layout:menu_left.html.twig', array(
+            'menu' => $menu
+        ));
+    }
+
+    /**
+     * Пункты левого меню
+     *
+     * @param $route_name
+     * @return array
+     */
+    private function getMenuLeft($current_route)
+    {
+        $menu = [
+            0 => [
+                'path'      => 'projects',
+                'title'     => 'Проекты',
+                'i_class'   => 'fa fa-fw fa-dashboard',
+                'routes'    => ['projects', 'project-show', 'project-add', 'project-edit', 'project-delete', '']
+            ],
+            1 => [
+                'path'      => 'reports',
+                'title'     => 'Отчёты',
+                'i_class'   => 'fa fa-fw fa-table',
+                'routes'    => ['project-link-add', 'project-link-edit', 'project-link-delete', 'project-link-update']
+            ]
+        ];
+        if ($this->UserIsAdmin()) {
+            $menu[] = [
+                'path'      => 'sonata_admin_dashboard',
+                'title'     => 'CMS',
+                'i_class'   => 'fa fa-fw fa-wrench',
+                'routes'    => []
+            ];
+        }
+
+        foreach ($menu as $i => $item) {
+            $menu[$i]['active'] = in_array($current_route, $menu[$i]['routes']);
+        }
+
+        return $menu;
+    }
+
+    /**
+     * Является ли текущий пользователь админом
+     *
+     * @return bool
+     */
+    private function UserIsAdmin()
+    {
+        return $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN');
     }
 
     /**

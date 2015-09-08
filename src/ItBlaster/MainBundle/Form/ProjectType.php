@@ -47,6 +47,13 @@ class ProjectType extends BaseAbstractType
                     'class' => 'form-control',
                 )
             ))
+            ->add('port', 'text', array(
+                'label'     => 'Кастомный порт для stage-версии',
+                'required'  => FALSE,
+                'attr' => array(
+                    'class' => 'form-control',
+                )
+            ))
         ;
     }
 }

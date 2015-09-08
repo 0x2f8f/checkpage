@@ -11,6 +11,7 @@
         <column name="title"        type="varchar" required="true" primaryString="true" />
         <column name="email"        type="varchar" required="true" />
         <column name="link"         type="varchar" />
+        <column name="port"         type="varchar" />
         <column name="active"       type="boolean" />
         <column name="status"       type="boolean" />
         <column name="last_check"   type="timestamp" />

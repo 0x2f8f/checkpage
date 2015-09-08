@@ -9,6 +9,7 @@ class HomepageController extends Controller
 {
     public function indexAction(Request $request)
     {
-        return $this->render('ItBlasterMainBundle:Homepage:index.html.twig', array());
+        return $this->redirect($this->generateUrl('projects'), 301);
+        //return $this->render('ItBlasterMainBundle:Homepage:index.html.twig', array());
     }
 }
