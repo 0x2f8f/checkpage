@@ -2,7 +2,7 @@
     <ul class="nav navbar-nav side-nav">
         {% for item in menu %}
             <li class="menu-item{{ item['active'] ? ' active' : '' }}">
-                <a href="{{ item['path'] }}"><i class="{{ item['i_class'] }}"></i> {{ item['title'] }}</a>
+                <a href="{{ path(item['path']) }}"><i class="{{ item['i_class'] }}"></i> {{ item['title'] }}</a>
             </li>
         {% endfor %}
 
