@@ -12,7 +12,7 @@ use Symfony\Component\Debug\Debug;
  if (
     (isset($_SERVER['HTTP_CLIENT_IP'])
     || isset($_SERVER['HTTP_X_FORWARDED_FOR'])
-    || !in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', 'fe80::1', '::1', '92.242.13.250', '192.168.74.2')))
+    || !in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', 'fe80::1', '::1', '92.242.13.250', '192.168.74.2','46.48.1.55')))
     && !(substr(@$_SERVER['REMOTE_ADDR'], 0, 7) == '192.168')
     && @$_SERVER['REMOTE_ADDR'] != '185.12.230.126'
 ) {
