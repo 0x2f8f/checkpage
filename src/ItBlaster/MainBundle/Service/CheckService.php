@@ -13,14 +13,21 @@ class CheckService
      * Ответ получаем вместе с телом страницы
      *
      * @param $url
+     * @param $custom_port
      * @return mixed
      */
-    public function getCurlInfo($url)
+    public function getCurlInfo($url, $custom_port = false)
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
         curl_setopt($ch, CURLOPT_TIMEOUT,$this->getCurloptTimeout());
+
+        //кастомный порт
+        if ($custom_port) {
+            curl_setopt($ch, CURLOPT_PORT, $custom_port);
+        }
+
         $output = curl_exec($ch);
         $httpcode = curl_getinfo($ch);
         curl_close($ch);
@@ -76,9 +83,10 @@ class CheckService
      * @throws \Exception
      * @throws \PropelException
      */
-    public function updateLink(ProjectLink $project_link)
+    public function updateLink(ProjectLink $project_link, $custom_port = false)
     {
-        $info = $this->getCurlInfo($project_link->getLink());
+        $link = $project_link->getLink();
+        $info = $this->getCurlInfo($link, $custom_port);
         $project_link
             ->setStatus($info['http_code'] == '200')
             ->setStatusCode($info['http_code'])

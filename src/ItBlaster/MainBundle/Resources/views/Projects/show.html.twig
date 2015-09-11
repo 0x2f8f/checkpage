@@ -18,6 +18,12 @@
             </p>
         {% endif %}
 
+        {% if project.link %}
+            <p class="help-block">
+                Кастомный порт: {{ project.port }}
+            </p>
+        {% endif %}
+
         {% if (project.links|length) %}
 
             <div class="table-responsive">

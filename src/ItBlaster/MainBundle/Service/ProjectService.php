@@ -63,11 +63,14 @@ class ProjectService extends BaseProjectService
      * @param bool $active
      * @return \PropelObjectCollection
      */
-    public function getProjectsAll($active = true)
+    public function getProjectsAll($active = true, $custom_port = false)
     {
         return ProjectQuery::create()
             ->_if($active)
                 ->filterByActive(true)
+            ->_endif()
+            ->_if($custom_port)
+                ->filterByPort('',\Criteria::NOT_EQUAL)
             ->_endif()
             ->orderByTitle()
             ->find();
