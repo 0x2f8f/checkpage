@@ -1,6 +1,9 @@
 <?php
 namespace ItBlaster\MainBundle\Command;
 
+use ItBlaster\MainBundle\Service\ProjectService;
+use ItBlaster\MainBundle\Service\CheckService;
+
 trait CommandTrait
 {
     protected $output;

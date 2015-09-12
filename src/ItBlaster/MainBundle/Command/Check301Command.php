@@ -1,12 +1,12 @@
 <?php
 namespace ItBlaster\MainBundle\Command;
 
+use FOS\UserBundle\Propel\UserQuery;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Bundle\FrameworkBundle\Tests\Functional\WebTestCase;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DomCrawler\Crawler;
+use ItBlaster\MainBundle\Model\ProjectLink;
 
 class Check301Command extends ContainerAwareCommand
 {
@@ -37,7 +37,17 @@ EOF
         $is_custom_port = ($input->getOption('custom-port') == 'true');
         $check_service = $this->getCheckService();
 
-        $project_list = $this->getProjectService()->getProjectsAll(true, $is_custom_port);
+        if ($user_name = $input->getOption('user_name')) {
+            if (!$user = UserQuery::create()->findOneByUsername($user_name)) {
+                $this->logError('Пользователь с именем '.$user_name.' не найден');
+                die();
+            } else {
+                $project_list = $this->getProjectService()->getProjectList($user, true, $is_custom_port);
+            }
+        } else {
+            $project_list = $this->getProjectService()->getProjectsAll(true, $is_custom_port);
+        }
+
         if (count($project_list)) {
             $this->log('Проектов на проверку: <info>'.count($project_list).'</info>');
             foreach ($project_list as $project) {
@@ -51,7 +61,7 @@ EOF
                         /** @var ProjectLink $project_link */
                         $project_link = $check_service->updateLink($project_link, $custom_port);
                         if ($project_link->getStatusCode() == 301) {
-                            $this->log( '<comment>'.$project->getTitle().'</comment> '.$project_link->getTitle() . ' <comment>' . $project_link->getStatusCode() . '</comment> <info>' . $project_link->getTotalTime() . '</info>');
+                            $this->log( '<comment>'.$project->getTitle().'</comment> '.$project_link->getTitle() . ' <comment>' . $project_link->getStatusCode() . '</comment> <info>' . $project_link->getTotalTime() . '</info> редиректит на <comment>'.$project_link->getRedirectUrl().'</comment>');
                         }
                     }
 

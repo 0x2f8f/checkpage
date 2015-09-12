@@ -92,6 +92,9 @@ class CheckService
             ->setStatusCode($info['http_code'])
             ->setLastCheck(time())
             ->setTotalTime($info['total_time']);
+        if ($info['http_code'] == '301') {
+            $project_link->setRedirectUrl($info['redirect_url']);
+        }
         $project_link->save();
         return $project_link;
     }

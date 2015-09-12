@@ -17,12 +17,15 @@ class ProjectService extends BaseProjectService
      * @return \PropelCollection
      * @throws \PropelException
      */
-    public function getProjectList(User $user, $active = false)
+    public function getProjectList(User $user, $active = false, $custom_port = false)
     {
         return ProjectQuery::create()
             ->filterByUser($user)
             ->_if($active)
                 ->filterByActive(true)
+            ->_endif()
+            ->_if($custom_port)
+                ->filterByPort('',\Criteria::NOT_EQUAL)
             ->_endif()
             ->orderByTitle()
             ->find();
