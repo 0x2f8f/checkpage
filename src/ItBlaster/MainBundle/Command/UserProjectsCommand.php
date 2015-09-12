@@ -47,7 +47,8 @@ EOF
             } else {
                 foreach ($projects as $project_item) {
                     /** @var Project $project_item */
-                    $this->log('id:<comment>'.$project_item->getId().'</comment> title:<comment>'.$project_item->getTitle().'</comment>');
+                    $custom_port_text = $project_item->getPort() ? ' кастомный порт:<comment>'.$project_item->getPort().' </comment>' : '';
+                    $this->log('id:<comment>'.$project_item->getId().'</comment> title:<comment>'.$project_item->getTitle().'</comment>'.$custom_port_text);
                 }
             }
         }
