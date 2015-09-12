@@ -9,19 +9,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class MainTestCommand extends ContainerAwareCommand
 {
-    protected $output;
-
-    /**
-     * Вывод ссобщения в консоль
-     *
-     * @param $message
-     */
-    protected function log($message)
-    {
-        //$output->writeln('<info>green color</info>');
-        //$output->writeln('<comment>yellow text</comment>');
-        $this->output->writeln($message);
-    }
+    use CommandTrait;
 
     protected function configure()
     {

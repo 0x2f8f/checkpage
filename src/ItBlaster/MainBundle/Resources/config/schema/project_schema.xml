@@ -36,6 +36,7 @@
         <column name="total_time"   type="float" />
         <column name="last_check"   type="timestamp" />
         <column name="project_id"   type="integer" />
+        <column name="redirect_url" type="varchar" />
 
         <foreign-key foreignTable="project" onDelete="setnull" onUpdate="cascade">
             <reference local="project_id" foreign="id" />

@@ -36,4 +36,15 @@ trait CommandTrait
     {
         return $this->getContainer()->get('project_service');
     }
+
+
+    /**
+     * Сервис проверки доступности ссылок
+     *
+     * @return CheckService
+     */
+    protected function getCheckService()
+    {
+        return $this->getContainer()->get('check_service');
+    }
 }

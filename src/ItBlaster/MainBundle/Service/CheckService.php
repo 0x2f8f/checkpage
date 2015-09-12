@@ -91,8 +91,8 @@ class CheckService
             ->setStatus($info['http_code'] == '200')
             ->setStatusCode($info['http_code'])
             ->setLastCheck(time())
-            ->setTotalTime($info['total_time'])
-            ->save();
+            ->setTotalTime($info['total_time']);
+        $project_link->save();
         return $project_link;
     }
 
