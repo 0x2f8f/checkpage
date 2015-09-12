@@ -18,7 +18,7 @@ class UserProjectsCommand extends ContainerAwareCommand
         $this
             ->setName('user:projects')
             ->setDescription('Список проектов пользователя')
-            ->addOption('user',null,InputOption::VALUE_OPTIONAL,'Логин пользователя')
+            ->addOption('user_name',null,InputOption::VALUE_OPTIONAL,'Логин пользователя')
 //            ->addArgument('name',InputArgument::OPTIONAL,'Who do you want to greet?')
 //            ->addOption('yell',null,InputOption::VALUE_NONE,'If set, the task will yell in uppercase letters')
             ->setHelp(<<<EOF
@@ -35,8 +35,8 @@ EOF
     {
         $this->output = $output;
 
-        if (!$user_name = $input->getOption('user')) {
-            $this->logError('необходимо указать переметр <info>port</info>'); die();
+        if (!$user_name = $input->getOption('user_name')) {
+            $this->logError('необходимо указать пераметр <info>user_name</info>'); die();
         }
         if (!$user = UserQuery::create()->findOneByUsername($user_name)) {
             $this->logError('Пользователь с именем <info>'.$user_name.'</info> не найден');
@@ -47,7 +47,7 @@ EOF
             } else {
                 foreach ($projects as $project_item) {
                     /** @var Project $project_item */
-                    $this->log('<comment>id</comment>:'.$project_item->getId().' <comment>title</comment>:'.$project_item->getTitle());
+                    $this->log('id:<comment>'.$project_item->getId().'</comment> title:<comment>'.$project_item->getTitle().'</comment>');
                 }
             }
         }
