@@ -69,26 +69,28 @@ EOF
                                 $this->log('<comment>' . $project->getTitle() . '</comment> ' . $project_link->getTitle() . ' <comment>' . $project_link->getStatusCode() . '</comment> <info>' . $project_link->getTotalTime() . '</info> редиректит на <comment>' . $project_link->getRedirectUrl() . '</comment>');
                             } else {
                                 if ($project_link->getRedirectUrl() == 'http://4x4.toyota-ekaterinburg.ru/') {
-                                    $rehosts[]=$project_link->getTitle();
+                                    $rehosts[]=$project->getTitle();
                                 }
                             }
                         }
                     }
 
                 }
-
-                if ($trade_rehost && count($rehosts)) {
-                    $hosts = "";
-                    foreach ($rehosts as $host) {
-                        if ($hosts) {
-                            $hosts.=',';
-                        }
-                        $hosts.=$host;
-                    }
-                    $command = "generate:hosts --domains={".$hosts."} --rebuild={".$hosts."}";
-                    $this->log($command);
-                }
             }
+
+            //ребилдинг доменов для трейда
+            if ($trade_rehost && count($rehosts)) {
+                $hosts = "";
+                foreach ($rehosts as $host) {
+                    if ($hosts) {
+                        $hosts.=',';
+                    }
+                    $hosts.=$host;
+                }
+                $command = "generate:hosts --domains={".$hosts."} --rebuild={".$hosts."}";
+                $this->log($command);
+            }
+
         } else {
             $this->log('нет ни одного проекта на проверку');
         }
