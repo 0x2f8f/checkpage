@@ -65,16 +65,12 @@ EOF
                         /** @var ProjectLink $project_link */
                         $project_link = $check_service->updateLink($project_link, $custom_port);
                         if ($project_link->getStatusCode() == 301) {
-                            if (!$trade_rehost) {
-                                $this->log('<comment>' . $project->getTitle() . '</comment> ' . $project_link->getTitle() . ' <comment>' . $project_link->getStatusCode() . '</comment> <info>' . $project_link->getTotalTime() . '</info> редиректит на <comment>' . $project_link->getRedirectUrl() . '</comment>');
-                            } else {
-                                if ($project_link->getRedirectUrl() == 'http://4x4.toyota-ekaterinburg.ru/') {
-                                    $rehosts[]=$project->getTitle();
-                                }
+                            $this->log('<comment>' . $project->getTitle() . '</comment> ' . $project_link->getTitle() . ' <comment>' . $project_link->getStatusCode() . '</comment> <info>' . $project_link->getTotalTime() . '</info> редиректит на <comment>' . $project_link->getRedirectUrl() . '</comment>');
+                            if ($trade_rehost && $project_link->getRedirectUrl() == 'http://4x4.toyota-ekaterinburg.ru/') {
+                                $rehosts[]=$project->getTitle();
                             }
                         }
                     }
-
                 }
             }
 
@@ -88,6 +84,7 @@ EOF
                     $hosts.=$host;
                 }
                 $command = "generate:hosts --domains={".$hosts."} --rebuild={".$hosts."}";
+                $this->log('');
                 $this->log($command);
             }
 
