@@ -18,7 +18,8 @@ class Check301Command extends ContainerAwareCommand
             ->setName('check:301')
             ->setDescription('Выводит ссылки, которые отдают 301 редирект')
             ->addOption('custom-port',null,InputOption::VALUE_OPTIONAL,'Запросы по кастомному порту')
-            ->addOption('user_name',null,InputOption::VALUE_OPTIONAL,'Логин пользователя')
+            ->addOption('user-name',null,InputOption::VALUE_OPTIONAL,'Логин пользователя')
+            ->addOption('trade-rehost',null,InputOption::VALUE_OPTIONAL,'Перегенерация доменов на trad')
 //            ->addArgument('name',InputArgument::OPTIONAL,'Who do you want to greet?')
 //            ->addOption('yell',null,InputOption::VALUE_NONE,'If set, the task will yell in uppercase letters')
             ->setHelp(<<<EOF
@@ -35,9 +36,12 @@ EOF
     {
         $this->output = $output;
         $is_custom_port = ($input->getOption('custom-port') == 'true');
+        if ($trade_rehost = ($input->getOption('trade-rehost') == 'true')) {
+            $rehosts = [];
+        }
         $check_service = $this->getCheckService();
 
-        if ($user_name = $input->getOption('user_name')) {
+        if ($user_name = $input->getOption('user-name')) {
             if (!$user = UserQuery::create()->findOneByUsername($user_name)) {
                 $this->logError('Пользователь с именем '.$user_name.' не найден');
                 die();
@@ -61,12 +65,29 @@ EOF
                         /** @var ProjectLink $project_link */
                         $project_link = $check_service->updateLink($project_link, $custom_port);
                         if ($project_link->getStatusCode() == 301) {
-                            $this->log( '<comment>'.$project->getTitle().'</comment> '.$project_link->getTitle() . ' <comment>' . $project_link->getStatusCode() . '</comment> <info>' . $project_link->getTotalTime() . '</info> редиректит на <comment>'.$project_link->getRedirectUrl().'</comment>');
+                            if (!$trade_rehost) {
+                                $this->log('<comment>' . $project->getTitle() . '</comment> ' . $project_link->getTitle() . ' <comment>' . $project_link->getStatusCode() . '</comment> <info>' . $project_link->getTotalTime() . '</info> редиректит на <comment>' . $project_link->getRedirectUrl() . '</comment>');
+                            } else {
+                                if ($project_link->getRedirectUrl() == 'http://4x4.toyota-ekaterinburg.ru/') {
+                                    $rehosts[]=$project_link->getTitle();
+                                }
+                            }
                         }
                     }
 
                 }
-                //$this->log('');
+
+                if ($trade_rehost && count($rehosts)) {
+                    $hosts = "";
+                    foreach ($rehosts as $host) {
+                        if ($hosts) {
+                            $hosts.=',';
+                        }
+                        $hosts.=$host;
+                    }
+                    $command = "generate:hosts --domains={".$hosts."} --rebuild={".$hosts."}";
+                    $this->log($command);
+                }
             }
         } else {
             $this->log('нет ни одного проекта на проверку');

@@ -120,7 +120,7 @@ EOF
         $mail_service = $this->getMailService();
         $custom_port_text = $custom_port ? 'порт: '.$custom_port : '';
         $subject = "Проблемы с доступностью сайта ".$project->getTitle().' ('.$project->getlink().$custom_port_text.')';
-        $body = "При проверке ссылок сайта <a href='".$project->getlinkUrl()."'>".$project->getTitle().'</a> ('.$custom_port_text.') были недоступны следующие ссылки:<br /><br />
+        $body = "При проверке ссылок сайта <a href='".$project->getlinkUrl()."'>".$project->getTitle().'</a> '.$custom_port_text.' были недоступны следующие ссылки:<br /><br />
         <table border="1">
             <tr>
                 <th>Ссылка</th>
