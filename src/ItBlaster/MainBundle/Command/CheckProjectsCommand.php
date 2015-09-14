@@ -101,7 +101,9 @@ EOF
                         }
                     }
                 }
-                $this->log('');
+                if (!$only_bad_text) {
+                    $this->log('');
+                }
             }
         } else {
             $this->log('нет ни одного проекта на обновление');
