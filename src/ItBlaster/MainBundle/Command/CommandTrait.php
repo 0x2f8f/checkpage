@@ -3,6 +3,7 @@ namespace ItBlaster\MainBundle\Command;
 
 use ItBlaster\MainBundle\Service\ProjectService;
 use ItBlaster\MainBundle\Service\CheckService;
+use ItBlaster\MainBundle\Service\MailService;
 
 trait CommandTrait
 {
@@ -49,5 +50,16 @@ trait CommandTrait
     protected function getCheckService()
     {
         return $this->getContainer()->get('check_service');
+    }
+
+
+    /**
+     * Почтовый сервис
+     *
+     * @return MailService
+     */
+    protected function getMailService()
+    {
+        return $this->getContainer()->get('mail_service');
     }
 }

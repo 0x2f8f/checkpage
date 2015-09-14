@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use ItBlaster\MainBundle\Model\ProjectLink;
+use ItBlaster\MainBundle\Model\Project;
 
 class Check301Command extends ContainerAwareCommand
 {
@@ -67,7 +68,7 @@ EOF
                         if ($project_link->getStatusCode() == 301) {
                             $this->log('<comment>' . $project->getTitle() . '</comment> ' . $project_link->getTitle() . ' <comment>' . $project_link->getStatusCode() . '</comment> <info>' . $project_link->getTotalTime() . '</info> редиректит на <comment>' . $project_link->getRedirectUrl() . '</comment>');
                             if ($trade_rehost && $project_link->getRedirectUrl() == 'http://4x4.toyota-ekaterinburg.ru/') {
-                                $rehosts[]=$project->getTitle();
+                                $rehosts[]=$project->getLink();
                             }
                         }
                     }
