@@ -1,6 +1,7 @@
 <?php
 namespace ItBlaster\MainBundle\Command;
 
+use FOS\UserBundle\Propel\UserQuery;
 use ItBlaster\MainBundle\Model\Project;
 use ItBlaster\MainBundle\Model\ProjectLink;
 use ItBlaster\MainBundle\Service\CheckService;
