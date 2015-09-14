@@ -20,7 +20,7 @@ class Check301Command extends ContainerAwareCommand
             ->setDescription('Выводит ссылки, которые отдают 301 редирект')
             ->addOption('custom-port',null,InputOption::VALUE_OPTIONAL,'Запросы по кастомному порту')
             ->addOption('user-name',null,InputOption::VALUE_OPTIONAL,'Логин пользователя')
-            ->addOption('trade-rehost',null,InputOption::VALUE_OPTIONAL,'Перегенерация доменов на trad')
+            ->addOption('trade-rehost',null,InputOption::VALUE_OPTIONAL,'Перегенерация доменов на trade')
 //            ->addArgument('name',InputArgument::OPTIONAL,'Who do you want to greet?')
 //            ->addOption('yell',null,InputOption::VALUE_NONE,'If set, the task will yell in uppercase letters')
             ->setHelp(<<<EOF

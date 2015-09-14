@@ -22,6 +22,7 @@ class CheckProjectsCommand extends ContainerAwareCommand
             ->setDescription('Проверка проектов')
             ->addOption('custom-port',null,InputOption::VALUE_OPTIONAL,'Запросы по кастомному порту')
             ->addOption('only-bad-text',null,InputOption::VALUE_OPTIONAL,'Выводить в консоль только плохие ссылки')
+            ->addOption('user-name',null,InputOption::VALUE_OPTIONAL,'Логин пользователя')
 //            ->addArgument('name',InputArgument::OPTIONAL,'Who do you want to greet?')
 //            ->addOption('yell',null,InputOption::VALUE_NONE,'If set, the task will yell in uppercase letters')
             ->setHelp(<<<EOF
@@ -44,7 +45,17 @@ EOF
         $project_service = $this->getProjectService();
         $check_service = $this->getCheckService();
 
-        $project_list = $project_service->getProjectsAll(true, $is_custom_port);
+        if ($user_name = $input->getOption('user-name')) {
+            if (!$user = UserQuery::create()->findOneByUsername($user_name)) {
+                $this->logError('Пользователь с именем '.$user_name.' не найден');
+                die();
+            } else {
+                $project_list = $this->getProjectService()->getProjectList($user, true, $is_custom_port);
+            }
+        } else {
+            $project_list = $this->getProjectService()->getProjectsAll(true, $is_custom_port);
+        }
+
         if (count($project_list)) {
             $this->log('Проектов на проверку: <info>'.count($project_list).'</info>');
             foreach ($project_list as $project) {
@@ -61,7 +72,7 @@ EOF
                     foreach ($project_links as $project_link) {
                         /** @var ProjectLink $project_link */
                         $project_link = $check_service->updateLink($project_link, $custom_port);
-                        $status_log_text = $project_link->getTitle().' <comment>'.$project_link->getStatusCode().'</comment> <info>'.$project_link->getTotalTime().'</info>';
+                        $status_log_text = $project_link->getTitle().' <comment>'.$project_link->getStatusCode().'</comment> <info>'.$project_link->getTotalTime().'</info> '.$project_link->getLink();
 
                         if (!$project_link->getStatus() || !$only_bad_text) {
                             $project_link->getStatus() ?
