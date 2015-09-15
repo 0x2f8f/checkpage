@@ -13,15 +13,16 @@ class CheckService
      * Ответ получаем вместе с телом страницы
      *
      * @param $url
-     * @param $custom_port
+     * @param bool|false $custom_port
+     * @param int $curlopt_timeout
      * @return mixed
      */
-    public function getCurlInfo($url, $custom_port = false)
+    public function getCurlInfo($url, $custom_port = false, $curlopt_timeout = 15)
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch, CURLOPT_TIMEOUT,$this->getCurloptTimeout());
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $curlopt_timeout);
 
         //кастомный порт
         if ($custom_port) {
@@ -83,10 +84,10 @@ class CheckService
      * @throws \Exception
      * @throws \PropelException
      */
-    public function updateLink(ProjectLink $project_link, $custom_port = false)
+    public function updateLink(ProjectLink $project_link, $custom_port = false, $curlopt_timeout = 15)
     {
         $link = $project_link->getLink();
-        $info = $this->getCurlInfo($link, $custom_port);
+        $info = $this->getCurlInfo($link, $custom_port, $curlopt_timeout);
         $project_link
             ->setStatus($info['http_code'] == '200')
             ->setStatusCode($info['http_code'])

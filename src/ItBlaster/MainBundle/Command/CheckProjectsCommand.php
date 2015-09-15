@@ -24,6 +24,7 @@ class CheckProjectsCommand extends ContainerAwareCommand
             ->addOption('custom-port',null,InputOption::VALUE_OPTIONAL,'Запросы по кастомному порту')
             ->addOption('only-bad-text',null,InputOption::VALUE_OPTIONAL,'Выводить в консоль только плохие ссылки')
             ->addOption('user-name',null,InputOption::VALUE_OPTIONAL,'Логин пользователя')
+            ->addOption('timeout',null,InputOption::VALUE_OPTIONAL,'Максимальное время ожидания ответа')
 //            ->addArgument('name',InputArgument::OPTIONAL,'Who do you want to greet?')
 //            ->addOption('yell',null,InputOption::VALUE_NONE,'If set, the task will yell in uppercase letters')
             ->setHelp(<<<EOF
@@ -42,6 +43,8 @@ EOF
 
         $is_custom_port = ($input->getOption('custom-port') == 'true');
         $only_bad_text = ($input->getOption('only-bad-text') == 'true');
+        $timeout = $input->getOption('timeout') ? $input->getOption('timeout') : 15;
+        $this->log($timeout);
 
         $project_service = $this->getProjectService();
         $check_service = $this->getCheckService();
@@ -51,10 +54,10 @@ EOF
                 $this->logError('Пользователь с именем '.$user_name.' не найден');
                 die();
             } else {
-                $project_list = $this->getProjectService()->getProjectList($user, true, $is_custom_port);
+                $project_list = $project_service->getProjectList($user, true, $is_custom_port);
             }
         } else {
-            $project_list = $this->getProjectService()->getProjectsAll(true, $is_custom_port);
+            $project_list = $project_service->getProjectsAll(true, $is_custom_port);
         }
 
         if (count($project_list)) {
@@ -72,7 +75,7 @@ EOF
                     //идём по опубликованным ссылкам сайта
                     foreach ($project_links as $project_link) {
                         /** @var ProjectLink $project_link */
-                        $project_link = $check_service->updateLink($project_link, $custom_port);
+                        $project_link = $check_service->updateLink($project_link, $custom_port, $timeout);
                         $status_log_text = $project_link->getTitle().' <comment>'.$project_link->getStatusCode().'</comment> <info>'.$project_link->getTotalTime().'</info> '.$project_link->getLink();
 
                         if (!$project_link->getStatus() || !$only_bad_text) {
