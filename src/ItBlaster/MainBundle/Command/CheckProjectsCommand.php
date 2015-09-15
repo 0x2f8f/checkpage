@@ -44,7 +44,6 @@ EOF
         $is_custom_port = ($input->getOption('custom-port') == 'true');
         $only_bad_text = ($input->getOption('only-bad-text') == 'true');
         $timeout = $input->getOption('timeout') ? $input->getOption('timeout') : 15;
-        $this->log($timeout);
 
         $project_service = $this->getProjectService();
         $check_service = $this->getCheckService();
