@@ -17,16 +17,23 @@ class ProjectService extends BaseProjectService
      * @return \PropelCollection
      * @throws \PropelException
      */
-    public function getProjectList(User $user, $active = false, $custom_port = false)
+    public function getProjectList(User $user, $active = false, $custom_port = false, $only_bad_status = false)
     {
         return ProjectQuery::create()
             ->filterByUser($user)
+
             ->_if($active)
                 ->filterByActive(true)
             ->_endif()
+
             ->_if($custom_port)
                 ->filterByPort('',\Criteria::NOT_EQUAL)
             ->_endif()
+
+            ->_if($only_bad_status)
+                ->filterByStatus(false)
+            ->_endif()
+
             ->orderByTitle()
             ->find();
     }
@@ -66,15 +73,22 @@ class ProjectService extends BaseProjectService
      * @param bool $active
      * @return \PropelObjectCollection
      */
-    public function getProjectsAll($active = true, $custom_port = false)
+    public function getProjectsAll($active = true, $custom_port = false, $only_bad_status = false)
     {
         return ProjectQuery::create()
+
             ->_if($active)
                 ->filterByActive(true)
             ->_endif()
+
             ->_if($custom_port)
                 ->filterByPort('',\Criteria::NOT_EQUAL)
             ->_endif()
+
+            ->_if($only_bad_status)
+                ->filterByStatus(false)
+            ->_endif()
+
             ->orderByTitle()
             ->find();
     }
