@@ -164,8 +164,8 @@ EOF
         $body.="</table><br />
             --------<br />
             <a href='http://checkpage.ru'>CheckPage.ru</a>";
-        $email = $project->getUserEmail();
-        return $mail_service->sendeMail($subject,$body,array($email));
+        $emails = $project->getUserEmails();
+        return $mail_service->sendeMail($subject, $body, $emails);
     }
 
     /**
@@ -180,7 +180,7 @@ EOF
         $custom_port_text = $custom_port ? 'порт: '.$custom_port : '';
         $subject = "Доступ к сайту ".$project->getTitle(). $custom_port_text.' полностью восстановлен';
         $body = "Доступ к сайту <a href='".$project->getlinkUrl()."'>".$project->getTitle()."</a> ".$custom_port_text." полностью восстановлен.<br /><br />--------<br /><a href='http://checkpage.ru'>CheckPage.ru</a>";
-        $email = $project->getUserEmail();
-        return $mail_service->sendeMail($subject,$body,array($email));
+        $emails = $project->getUserEmails();
+        return $mail_service->sendeMail($subject, $body, $emails);
     }
 }

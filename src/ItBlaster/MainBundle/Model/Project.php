@@ -17,6 +17,23 @@ class Project extends BaseProject
     }
 
     /**
+     * Список e-mail'ов пользователей
+     *
+     * @return array
+     */
+    public function getUserEmails()
+    {
+        $emails = [];
+        $emails_params = explode(';',str_replace(',',';',$this->getUserEmail()));
+        foreach ($emails_params as $email_item) {
+            if ($email = trim($email_item)) {
+                $emails[]=$email;
+            }
+        }
+        return $emails;
+    }
+
+    /**
      * Ссылки проекта
      *
      * @param bool|false $active

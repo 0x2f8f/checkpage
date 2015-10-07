@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Tests\Functional\WebTestCase;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use ItBlaster\MainBundle\Model\Project;
 
 class CheckReminderCommand extends ContainerAwareCommand
 {
@@ -48,9 +49,14 @@ EOF
 
         if (count($project_list)) {
             foreach ($project_list as $project) {
+                /** @var Project $project */
                 $this->log($project->getTitle());
-                $project_links = $project->getLinks(true, true);
+                $project_bad_links = $project->getLinks(true, true);
+
                 //TODO: далее собираем плохие ссылки в одну кучу и отправляем письмо
+                if(count($project_bad_links)) {
+
+                }
             }
         } else {
             $this->log('со всеми проектами всё ок');
