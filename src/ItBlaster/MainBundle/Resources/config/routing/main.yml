@@ -1,5 +1,0 @@
-#Главная
-homepage:
-  pattern:  /
-  defaults:
-    _controller: ItBlasterMainBundle:Homepage:index

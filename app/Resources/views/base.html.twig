@@ -1,49 +1,13 @@
 <!DOCTYPE html>
-<!--[if lt IE 9]><html class="no-js oldie" lang="ru"> <![endif]-->
-<!--[if IE 9]><html class="no-js ie9" lang="ru"> <![endif]-->
-<!--[if gt IE 9]><!-->
-<html lang="en" class="no-js">
-<!--<![endif]-->
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
-    <meta content="telephone=no" name="format-detection">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-
-    <title>{% block title %}{{ project_title|trans }}{% endblock %}</title>
-    <link href="/favicon.ico" rel="shortcut icon">
-
-    {% block stylesheets %}
-        <link href="{{ asset('/bundles/itblastermain/css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('/bundles/itblastermain/css/sb-admin.css') }}" rel="stylesheet">
-        <link href="{{ asset('/bundles/itblastermain/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('/bundles/itblastermain/css/style.css') }}" rel="stylesheet" />
-    {% endblock %}
-    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script><![endif]-->
-    {% include '::base.js.html.twig' %}
-    {% block javascripts %}{% endblock %}
-    {% block head %}{% endblock %}
-</head>
-
-<body{% if bodyClass is defined %} class="{{ bodyClass }}"{% endif %}>
-<!--[if lt IE 9]>
-<p class="chromeframe">You are using <strong>an outdated</strong> browser. Please <a href="http://browsehappy.com/"><b>update your browser</b></a>.</p>
-<![endif]-->
-{% block header %}
-{% endblock header %}
-
-{% block body %}
-{% endblock body %}
-
-{% block footer %}
-{% endblock footer %}
-
-<noindex>
-    {% block layers %}
-    {% endblock layers %}
-</noindex>
-</body>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
 </html>

@@ -1,5 +1,0 @@
-#Отчёты
-reports:
-  pattern:  /reports
-  defaults:
-    _controller: ItBlasterMainBundle:Reports:index

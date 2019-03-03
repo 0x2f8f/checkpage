@@ -1,4 +1,1 @@
-CheckPage
-========================
-
-Check the availability of site
+# check-page

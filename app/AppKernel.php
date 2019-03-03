@@ -7,36 +7,30 @@ class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        $bundles = array(
+        $bundles = [
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Propel\PropelBundle\PropelBundle(),
+
+            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            //new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            //new JMS\SerializerBundle\JMSSerializerBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
 
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
-            new Sonata\PropelAdminBundle\SonataPropelAdminBundle(),
-            new FOS\UserBundle\FOSUserBundle(),
-            //new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
 
-            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
-            new Jonlil\CKFinderBundle\JonlilCKFinderBundle('IvoryCKEditorBundle'),
+            new CheckPageBundle\CheckPageBundle()
+        ];
 
-            //new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
-            //new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
-            //new JMS\TranslationBundle\JMSTranslationBundle(),
-
-            new ItBlaster\MainBundle\ItBlasterMainBundle(),
-            new ItBlaster\FixturesBundle\ItBlasterFixturesBundle(),
-        );
-
-        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+        if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
@@ -46,10 +40,23 @@ class AppKernel extends Kernel
         return $bundles;
     }
 
+    public function getRootDir()
+    {
+        return __DIR__;
+    }
+
+    public function getCacheDir()
+    {
+        return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
+    }
+
+    public function getLogDir()
+    {
+        return dirname(__DIR__).'/var/logs';
+    }
+
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
 }
-
-
